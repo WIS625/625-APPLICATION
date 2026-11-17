@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101820">
+  <title>WIS | State 625 Application</title>
+  <style>
+    :root {
+      --bg: #0b1117; --panel: #121c25; --panel2: #17232e;
+      --line: #2a3946; --text: #edf2f4; --muted: #9aaab5;
+      --gold: #c6a66b; --gold2: #e0c58e; --red: #a94f45;
+      --input: #0d151d; --green: #789b83;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; color: var(--text);
+      background: radial-gradient(ellipse at 50% -20%, #263747 0%, transparent 55%), var(--bg);
+      font: 15px/1.55 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    .topline { height: 4px; background: linear-gradient(90deg, #596b75, var(--gold), #596b75); }
+    .wrap { width: min(900px, calc(100% - 30px)); margin: 36px auto 60px; }
+    header { text-align: center; margin-bottom: 26px; }
+    .crest {
+      width: 66px; height: 66px; margin: 0 auto 12px; display:grid; place-items:center;
+      border: 1px solid #806b47; color: var(--gold2); background: #18232c;
+      clip-path: polygon(50% 0, 92% 15%, 88% 72%, 50% 100%, 12% 72%, 8% 15%);
+      font-weight: 900; letter-spacing: 2px; font-size: 20px;
+    }
+    .eyebrow { color: var(--gold); font-size: 11px; font-weight: 800; letter-spacing: .24em; }
+    h1 { margin: 7px 0 3px; font-size: clamp(30px, 6vw, 46px); letter-spacing: .12em; line-height: 1.1; }
+    .subtitle { color: var(--muted); margin: 8px 0 0; }
+    .status { display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:6px 11px; border:1px solid #34434d; border-radius:30px; color:#c5d0d5; font-size:11px; letter-spacing:.12em; }
+    .dot { width:7px; height:7px; background:var(--green); border-radius:50%; box-shadow:0 0 10px #789b83; }
+    form { background: linear-gradient(180deg, rgba(23,35,46,.97), rgba(16,25,34,.98)); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 24px 70px #0007; }
+    .intro { padding:20px 24px; border-bottom:1px solid var(--line); color:#bdc8ce; font-size:13px; }
+    .section { padding:23px 24px 25px; border-bottom:1px solid var(--line); }
+    .section:last-of-type { border-bottom:0; }
+    .section-title { display:flex; align-items:center; gap:11px; margin:0 0 18px; color:var(--gold2); font-size:12px; letter-spacing:.16em; font-weight:850; }
+    .num { display:grid; place-items:center; width:25px; height:25px; border:1px solid #705d3f; border-radius:6px; color:var(--gold); font-size:11px; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .field { display:flex; flex-direction:column; gap:7px; min-width:0; }
+    .field.full { grid-column:1/-1; }
+    label { color:#d7e0e4; font-size:12px; font-weight:700; }
+    .hint { color:var(--muted); font-size:11px; font-weight:400; }
+    input, select, textarea {
+      width:100%; min-height:44px; border:1px solid #34434f; border-radius:7px;
+      padding:11px 12px; color:var(--text); background:var(--input); font:inherit; outline:none;
+    }
+    input:focus, select:focus, textarea:focus { border-color:var(--gold); box-shadow:0 0 0 3px #c6a66b22; }
+    input::placeholder, textarea::placeholder { color:#667783; }
+    select { color-scheme:dark; }
+    textarea { min-height:112px; resize:vertical; }
+    input[type=file] { padding:9px; font-size:12px; }
+    input[type=file]::file-selector-button { background:#263744; color:#e5edf0; border:1px solid #435462; padding:7px 10px; border-radius:5px; margin-right:10px; }
+    .checkrow { display:flex; align-items:flex-start; gap:10px; margin-top:18px; color:#b9c6cc; font-size:12px; }
+    .checkrow input { width:16px; min-height:16px; margin-top:2px; accent-color:var(--gold); }
+    .actions { padding:22px 24px 25px; background:#0e171f; }
+    button { width:100%; border:1px solid #d1b47d; border-radius:7px; padding:14px 18px; color:#171b1e; background:linear-gradient(180deg,#dfc58f,#b99a5f); font-weight:900; letter-spacing:.15em; cursor:pointer; }
+    button:hover { filter:brightness(1.08); }
+    button:disabled { opacity:.6; cursor:wait; }
+    .notice { display:none; margin-top:14px; padding:12px 14px; border-radius:7px; font-size:13px; }
+    .notice.error { display:block; color:#ffd9d5; border:1px solid #8f4a43; background:#49252255; }
+    .notice.success { display:block; color:#d7f0df; border:1px solid #557d61; background:#203b2a88; }
+    footer { text-align:center; margin-top:20px; color:#71818c; font-size:11px; letter-spacing:.06em; }
+    .required { color:var(--gold2); }
+    @media(max-width:620px) {
+      .wrap { margin-top:25px; }
+      .section, .intro, .actions { padding-left:17px; padding-right:17px; }
+      .grid { grid-template-columns:1fr; gap:13px; }
+      .field.full { grid-column:auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <main class="wrap">
+    <header>
+      <div class="crest">WIS</div>
+      <div class="eyebrow">STATE 625 • DARK WAR</div>
+      <h1>WIS</h1>
+      <div class="eyebrow">MIGRATION APPLICATION</div>
+      <p class="subtitle">Your next chapter starts with the right alliance.</p>
+      <div class="status"><span class="dot"></span> RECRUITMENT INTAKE</div>
+    </header>
+
+    <!-- SETUP: Replace YOUR_FORMSPREE_ID with your Formspree form ID.
+         Create a form at https://formspree.io/ and paste the ID below. -->
+    <form id="applicationForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" enctype="multipart/form-data">
+      <div class="intro">
+        Please complete the application accurately. Fields marked <span class="required">*</span> are required.
+        Your details will be reviewed by WIS leadership. Submitting this form does not guarantee acceptance.
+      </div>
+
+      <section class="section">
+        <h2 class="section-title"><span class="num">01</span> PLAYER INFORMATION</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="playerName">In-game name <span class="required">*</span></label>
+            <input id="playerName" name="In-game name" required maxlength="60" placeholder="Your player name">
+          </div>
+          <div class="field">
+            <label for="playerId">Player ID <span class="required">*</span></label>
+            <input id="playerId" name="Player ID" required inputmode="numeric" placeholder="Your in-game ID">
+          </div>
+          <div class="field">
+            <label for="currentState">Current state <span class="required">*</span></label>
+            <input id="currentState" name="Current state" required placeholder="e.g. 620">
+          </div>
+          <div class="field">
+            <label for="currentAlliance">Current alliance <span class="required">*</span></label>
+            <input id="currentAlliance" name="Current alliance" required placeholder="Alliance tag / name">
+          </div>
+          <div class="field">
+            <label for="preferredAlliance">Preferred WIS group</label>
+            <select id="preferredAlliance" name="Preferred WIS group">
+              <option value="">Select preference</option>
+              <option>WIS</option>
+              <option>Open to leadership recommendation</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="backupAlliance">Backup preference</label>
+            <input id="backupAlliance" name="Backup preference" placeholder="Optional">
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title"><span class="num">02</span> ACCOUNT & POWER</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="watchtower">Watchtower level</label>
+            <input id="watchtower" name="Watchtower level" placeholder="e.g. 30">
+          </div>
+          <div class="field">
+            <label for="overallPower">Overall power <span class="required">*</span></label>
+            <input id="overallPower" name="Overall power" required placeholder="e.g. 250M">
+          </div>
+          <div class="field">
+            <label for="march1">1st march power</label>
+            <input id="march1" name="1st march power" placeholder="e.g. 25M">
+          </div>
+          <div class="field">
+            <label for="march2">2nd march power</label>
+            <input id="march2" name="2nd march power" placeholder="e.g. 22M">
+          </div>
+          <div class="field">
+            <label for="march3">3rd march power</label>
+            <input id="march3" name="3rd march power" placeholder="e.g. 20M">
+          </div>
+          <div class="field">
+            <label for="march4">4th march power</label>
+            <input id="march4" name="4th march power" placeholder="Optional">
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title"><span class="num">03</span> ACTIVITY & BACKGROUND</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="activity">Usual activity / time zone</label>
+            <input id="activity" name="Usual activity / time zone" placeholder="e.g. Daily, UTC+8">
+          </div>
+          <div class="field">
+            <label for="role">Preferred play style</label>
+            <select id="role" name="Preferred play style">
+              <option value="">Select one</option>
+              <option>Competitive / PvP</option>
+              <option>Events and rallies</option>
+              <option>Growth / development</option>
+              <option>Casual but active</option>
+              <option>Flexible</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="reason">Tell us about yourself and why you want to join WIS <span class="required">*</span></label>
+            <textarea id="reason" name="Why do you want to join WIS?" required maxlength="2000" placeholder="Your experience, expectations, activity, and anything leadership should know..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title"><span class="num">04</span> PROOF & CONFIRMATION</h2>
+        <div class="grid">
+          <div class="field full">
+            <label for="screenshots">Upload screenshots <span class="hint">(optional; account / power / march details)</span></label>
+            <input id="screenshots" type="file" name="Screenshots" accept="image/*" multiple>
+            <span class="hint">You can select more than one image. Keep screenshots clear and readable.</span>
+          </div>
+        </div>
+        <label class="checkrow">
+          <input type="checkbox" name="Information confirmation" value="Confirmed" required>
+          <span>I confirm that the information provided is accurate and understand that WIS leadership may contact me for further details. <span class="required">*</span></span>
+        </label>
+      </section>
+
+      <div class="actions">
+        <button id="submitButton" type="submit">SUBMIT APPLICATION</button>
+        <div id="formNotice" class="notice" role="status" aria-live="polite"></div>
+      </div>
+    </form>
+    <footer>WIS • STATE 625 • APPLICATION PORTAL</footer>
+  </main>
+  <script>
+    const form = document.getElementById('applicationForm');
+    const notice = document.getElementById('formNotice');
+    const button = document.getElementById('submitButton');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      notice.className = 'notice';
+      notice.textContent = '';
+      if (!form.reportValidity()) return;
+      if (form.action.includes('YOUR_FORMSPREE_ID')) {
+        notice.className = 'notice error';
+        notice.textContent = 'This form is not connected yet. Follow the README instructions to connect Formspree before publishing.';
+        return;
+      }
+      button.disabled = true;
+      button.textContent = 'SUBMITTING...';
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.reset();
+          notice.className = 'notice success';
+          notice.textContent = 'Application submitted. Thank you for applying to WIS!';
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch (error) {
+        notice.className = 'notice error';
+        notice.textContent = 'We could not submit your application. Please try again or contact WIS leadership.';
+      } finally {
+        button.disabled = false;
+        button.textContent = 'SUBMIT APPLICATION';
+      }
+    });
+  </script>
+</body>
+</html>
