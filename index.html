@@ -19,7 +19,7 @@
       font: 15px/1.55 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
     .topline { height: 4px; background: linear-gradient(90deg, #596b75, var(--gold), #596b75); }
-    .wrap { width: min(900px, calc(100% - 30px)); margin: 36px auto 60px; }
+    .wrap { width: min(1100px, calc(100% - 30px)); margin: 24px auto 60px; }
     header { text-align: center; margin-bottom: 26px; }
     .crest {
       width: 66px; height: 66px; margin: 0 auto 12px; display:grid; place-items:center;
@@ -76,17 +76,19 @@
   <div class="topline"></div>
   <main class="wrap">
 
-    <section id="landing" style="position:relative;min-height: min(76vh,760px);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;border:1px solid #394754;border-radius:16px;background:#101820;margin-bottom:24px;">
-      <img src="wis-landing-duck.png" alt="WIS duck mascot at the State 625 fortress" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
-      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,10,15,.22),rgba(5,10,15,.1)),linear-gradient(0deg,rgba(5,10,15,.25),transparent 60%);"></div>
-      <div style="position:absolute;top:14px;right:14px;z-index:2;background:#111a22dd;border:1px solid #c6a66b;border-radius:8px;padding:6px 10px;">
+    <section id="landing" style="position:relative;width:100%;margin:0 auto 24px;overflow:hidden;border:1px solid #394754;border-radius:12px;background:#101820;line-height:0;">
+      <img src="wis-landing-duck.png" alt="WIS duck mascot welcoming applicants to State 625" style="display:block;width:100%;height:auto;object-fit:contain;">
+      <div style="position:absolute;top:2.5%;right:2.5%;z-index:2;background:#111a22ee;border:1px solid #c6a66b;border-radius:7px;padding:4px 7px;line-height:1.3;">
         <label for="landingLanguage" style="display:none">Language</label>
-        <select id="landingLanguage" aria-label="Choose language" style="min-height:34px;padding:5px 8px;background:#111a22;border:0;color:#fff;">
+        <select id="landingLanguage" aria-label="Choose language" style="min-height:30px;max-width:145px;padding:4px 6px;background:#111a22;border:0;color:#fff;font-size:12px;">
           <option value="en">🇬🇧 English</option><option value="fil">🇵🇭 Filipino</option><option value="vi">🇻🇳 Tiếng Việt</option><option value="ko">🇰🇷 한국어</option><option value="ja">🇯🇵 日本語</option><option value="zh">🇨🇳 中文</option><option value="th">🇹🇭 ไทย</option><option value="other">🌐 Other</option>
         </select>
       </div>
-      <button id="openApplication" type="button" style="position:absolute;left:50%;top:66%;transform:translate(-50%,-50%);width:auto;min-width:210px;padding:15px 26px;z-index:2;box-shadow:0 5px 30px #0008;">APPLY NOW ›</button>
+      
     </section>
+    <div style="text-align:center;margin:0 auto 26px;">
+      <button id="openApplication" type="button" style="width:auto;min-width:170px;padding:12px 24px;letter-spacing:.16em;">ENTER PORTAL</button>
+    </div>
     <header id="formHeader" style="display:none">
       <div class="crest">WIS</div>
       <div class="eyebrow" data-i18n="state">STATE 625 • DARK WAR</div>
@@ -241,78 +243,4 @@
       vi: {state:"STATE 625 • DARK WAR",application:"ĐƠN ĐĂNG KÝ CHUYỂN STATE",subtitle:"Chương mới của bạn bắt đầu với liên minh phù hợp.",intake:"ĐANG TUYỂN THÀNH VIÊN",intro:"Vui lòng điền đơn chính xác. Các mục có dấu",intro2:"là bắt buộc. Ban lãnh đạo WIS sẽ xem xét thông tin của bạn. Gửi đơn không đồng nghĩa với việc được chấp nhận.",playerSection:"THÔNG TIN NGƯỜI CHƠI",powerSection:"TÀI KHOẢN & SỨC MẠNH",activitySection:"HOẠT ĐỘNG & THÔNG TIN",proofSection:"BẰNG CHỨNG & XÁC NHẬN",playerName:"Tên trong game *",playerId:"ID người chơi *",currentState:"State hiện tại *",currentAlliance:"Liên minh hiện tại *",preferredAlliance:"Liên minh bạn muốn đăng ký",backupAlliance:"Lựa chọn dự phòng",watchtower:"Cấp Tháp Canh",overallPower:"Tổng CP *",march1:"Sức mạnh đội hình 1",march2:"Sức mạnh đội hình 2",march3:"Sức mạnh đội hình 3",march4:"Sức mạnh đội hình 4",activity:"Thời gian hoạt động / múi giờ",role:"Phong cách chơi mong muốn",reason:"Tại sao bạn muốn gia nhập 625? *",bag:"ẢNH TÚI ĐỒ (BAG SCREENSHOT)",bagHint:"Tải lên ảnh chụp túi đồ trong game rõ nét. Bạn có thể chọn nhiều ảnh.",confirm:"Tôi xác nhận thông tin đã cung cấp là chính xác và hiểu rằng ban lãnh đạo WIS có thể liên hệ để hỏi thêm.",submit:"GỬI ĐƠN ĐĂNG KÝ",footer:"WIS • STATE 625 • CỔNG ĐĂNG KÝ"},
       ko: {state:"STATE 625 • DARK WAR",application:"이주 신청서",subtitle:"새로운 시작은 좋은 연맹과 함께합니다.",intake:"모집 진행 중",intro:"신청서를 정확하게 작성해 주세요. 다음 표시가 있는 항목은",intro2:"필수입니다. WIS 운영진이 내용을 검토하며, 신청서 제출이 가입을 보장하지는 않습니다.",playerSection:"플레이어 정보",powerSection:"계정 및 전투력",activitySection:"활동 및 배경",proofSection:"증빙 및 확인",playerName:"게임 닉네임 *",playerId:"플레이어 ID *",currentState:"현재 주 *",currentAlliance:"현재 연맹 *",preferredAlliance:"지원할 연맹",backupAlliance:"차선 선택",watchtower:"감시탑 레벨",overallPower:"전체 CP *",march1:"1부대 전투력",march2:"2부대 전투력",march3:"3부대 전투력",march4:"4부대 전투력",activity:"주 활동 시간 / 시간대",role:"선호하는 플레이 스타일",reason:"625에 가입하고 싶은 이유는 무엇인가요? *",bag:"가방 스크린샷 (선택)",bagHint:"게임 내 가방 화면을 선명하게 캡처해 업로드하세요. 여러 장을 선택할 수 있습니다.",confirm:"제출한 정보가 정확함을 확인하며, 추가 확인을 위해 WIS 운영진이 연락할 수 있음을 이해합니다.",submit:"신청서 제출",footer:"WIS • STATE 625 • 신청 포털"},
       ja: {state:"STATE 625 • DARK WAR",application:"移民申請フォーム",subtitle:"新しい章を、最適な同盟とともに始めましょう。",intake:"メンバー募集中",intro:"申請内容を正確に入力してください。",intro2:"が付いた項目は必須です。WIS幹部が内容を確認します。送信しても加入が確約されるわけではありません。",playerSection:"プレイヤー情報",powerSection:"アカウントと戦力",activitySection:"活動状況・プロフィール",proofSection:"証明・確認",playerName:"ゲーム内の名前 *",playerId:"プレイヤーID *",currentState:"現在のステート *",currentAlliance:"現在の同盟 *",preferredAlliance:"応募したい同盟",backupAlliance:"第2希望",watchtower:"監視塔レベル",overallPower:"総CP *",march1:"第1部隊の戦力",march2:"第2部隊の戦力",march3:"第3部隊の戦力",march4:"第4部隊の戦力",activity:"通常の活動時間 / タイムゾーン",role:"希望するプレイスタイル",reason:"625に加入したい理由を教えてください *",bag:"バッグのスクリーンショット（任意）",bagHint:"ゲーム内バッグの鮮明なスクリーンショットをアップロードしてください。複数選択できます。",confirm:"入力した情報が正確であることを確認し、追加確認のためWIS幹部から連絡が来る場合があることに同意します。",submit:"申請を送信",footer:"WIS • STATE 625 • 申請ポータル"},
-      zh: {state:"STATE 625 • DARK WAR",application:"迁服申请表",subtitle:"与合适的联盟一起开启新的篇章。",intake:"正在招募",intro:"请准确填写申请表。带有",intro2:"的项目为必填项。WIS 管理团队将审核你的资料。提交申请不代表一定会获批。",playerSection:"玩家信息",powerSection:"账号与战力",activitySection:"活跃情况与背景",proofSection:"证明与确认",playerName:"游戏昵称 *",playerId:"玩家 ID *",currentState:"当前州 *",currentAlliance:"当前联盟 *",preferredAlliance:"想申请加入的联盟",backupAlliance:"备选联盟",watchtower:"瞭望塔等级",overallPower:"总 CP *",march1:"第一队战力",march2:"第二队战力",march3:"第三队战力",march4:"第四队战力",activity:"通常活跃时间 / 时区",role:"偏好的游戏风格",reason:"你为什么想加入 625？ *",bag:"背包截图（可选）",bagHint:"请上传清晰的游戏背包截图。可以选择多张图片。",confirm:"我确认所提供的信息准确无误，并理解 WIS 管理团队可能会联系我了解更多详情。",submit:"提交申请",footer:"WIS • STATE 625 • 申请入口"},
-      th: {state:"STATE 625 • DARK WAR",application:"แบบฟอร์มสมัครย้ายรัฐ",subtitle:"เริ่มบทใหม่ของคุณไปพร้อมกับพันธมิตรที่ใช่",intake:"กำลังเปิดรับสมาชิก",intro:"กรุณากรอกใบสมัครให้ถูกต้อง ช่องที่มีเครื่องหมาย",intro2:"เป็นช่องบังคับ กำลังของ WIS จะตรวจสอบข้อมูลของคุณ การส่งใบสมัครไม่ได้รับประกันว่าจะได้รับการยอมรับ",playerSection:"ข้อมูลผู้เล่น",powerSection:"บัญชีและพลัง",activitySection:"กิจกรรมและประวัติ",proofSection:"หลักฐานและการยืนยัน",playerName:"ชื่อในเกม *",playerId:"ID ผู้เล่น *",currentState:"รัฐปัจจุบัน *",currentAlliance:"พันธมิตรปัจจุบัน *",preferredAlliance:"พันธมิตรที่ต้องการสมัคร",backupAlliance:"ตัวเลือกสำรอง",watchtower:"ระดับหอสังเกตการณ์",overallPower:"CP รวม *",march1:"พลังทัพที่ 1",march2:"พลังทัพที่ 2",march3:"พลังทัพที่ 3",march4:"พลังทัพที่ 4",activity:"ช่วงเวลาที่เล่น / เขตเวลา",role:"รูปแบบการเล่นที่ต้องการ",reason:"ทำไมคุณจึงต้องการเข้าร่วม 625? *",bag:"ภาพหน้าจอกระเป๋า (BAG SCREENSHOT)",bagHint:"อัปโหลดภาพหน้าจอกระเป๋าในเกมที่ชัดเจน สามารถเลือกได้หลายภาพ",confirm:"ฉันยืนยันว่าข้อมูลที่ให้ไว้ถูกต้อง และเข้าใจว่าผู้นำ WIS อาจติดต่อเพื่อขอรายละเอียดเพิ่มเติม",submit:"ส่งใบสมัคร",footer:"WIS • STATE 625 • พอร์ทัลใบสมัคร"}
-    };
-
-    const landingLanguage = document.getElementById('landingLanguage');
-    const landing = document.getElementById('landing');
-    const formHeader = document.getElementById('formHeader');
-    const applicationForm = document.getElementById('applicationForm');
-    document.getElementById('openApplication').addEventListener('click', () => {
-      landing.style.display = 'none';
-      formHeader.style.display = '';
-      applicationForm.style.display = '';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    landingLanguage.addEventListener('change', () => {
-      const selected = landingLanguage.value === 'other' ? 'en' : landingLanguage.value;
-      languageSelect.value = selected;
-      languageSelect.dispatchEvent(new Event('change'));
-    });
-
-    const languageSelect = document.getElementById('languageSelect');
-    languageSelect.addEventListener('change', () => {
-      const dict = translations[languageSelect.value] || translations.en;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (dict[key]) {
-          if (el.tagName === 'LABEL' && el.querySelector('.required')) {
-            const star = el.querySelector('.required').outerHTML;
-            el.innerHTML = dict[key].replace(' *', '') + ' ' + star;
-          } else {
-            el.textContent = dict[key];
-          }
-        }
-      });
-    });
-
-    const form = document.getElementById('applicationForm');
-    const notice = document.getElementById('formNotice');
-    const button = document.getElementById('submitButton');
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      notice.className = 'notice';
-      notice.textContent = '';
-      if (!form.reportValidity()) return;
-      if (form.action.includes('YOUR_FORMSPREE_ID')) {
-        notice.className = 'notice error';
-        notice.textContent = 'This form is not connected yet. Follow the README instructions to connect Formspree before publishing.';
-        return;
-      }
-      button.disabled = true;
-      button.textContent = 'SUBMITTING...';
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-          form.reset();
-          notice.className = 'notice success';
-          notice.textContent = 'Application submitted. Thank you for applying to WIS!';
-        } else {
-          throw new Error('Submission failed');
-        }
-      } catch (error) {
-        notice.className = 'notice error';
-        notice.textContent = 'We could not submit your application. Please try again or contact WIS leadership.';
-      } finally {
-        button.disabled = false;
-        button.textContent = 'SUBMIT APPLICATION';
-      }
-    });
-  </script>
-</body>
-</html>
+      zh: {state:"STATE 625 • DARK WAR",application:"迁服申请表",subtitle:"与合适的联盟一起开启新的篇章。",intake:"正在招募",intro:"请准确填写申请表。带有",intro2:"的项目为必填项。WIS 管理团队将审核你的资料。提交申请不代表一定会获批。",playerSection:"玩
