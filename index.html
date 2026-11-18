@@ -149,8 +149,31 @@
       .landing-apply { bottom:28px; }
     }
     [hidden] { display:none !important; }
-  </style>
-</head>
+  
+    .application-embed {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 28px;
+      padding: 0;
+      overflow: visible;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: transparent;
+    }
+    .application-embed iframe {
+      display: block;
+      width: 100%;
+      min-height: 700px;
+      border: 0;
+      border-radius: 18px;
+      background: transparent;
+    }
+    @media (max-width: 600px) {
+      .application-embed { border-radius: 14px; }
+      .application-embed iframe { min-height: 900px; border-radius: 14px; }
+    }
+\n  </style>
+  <script async src="https://tally.so/widgets/embed.js"></script>\n</head>
 <body class="landing-mode">
   <div class="topline"></div>
   <main class="wrap">
@@ -329,6 +352,44 @@
         <div id="formNotice" class="notice" role="status" aria-live="polite"></div>
       </div>
     </form>
+
+    <div id="applicationEmbed" class="application-embed" style="display:none">
+      <iframe
+        data-tally-src="https://tally.so/embed/gbqYr1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy"
+        width="100%"
+        height="200"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title="WIS Migration Application">
+      </iframe>
+      <script>
+        (function () {
+          var d = document;
+          var w = "https://tally.so/widgets/embed.js";
+          function loadTally() {
+            if (typeof Tally !== "undefined") {
+              Tally.loadEmbeds();
+            } else {
+              d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function (e) {
+                e.src = e.dataset.tallySrc;
+              });
+            }
+          }
+          if (typeof Tally !== "undefined") {
+            loadTally();
+          } else if (!d.querySelector('script[src="' + w + '"]')) {
+            var s = d.createElement("script");
+            s.src = w;
+            s.async = true;
+            s.onload = loadTally;
+            s.onerror = loadTally;
+            d.body.appendChild(s);
+          }
+        })();
+      </script>
+    </div>
     <footer data-i18n="footer">WIS • STATE 625 • APPLICATION PORTAL</footer>
   </main>
   <script>
@@ -358,7 +419,8 @@
       document.body.classList.remove('landing-mode');
       landing.hidden = true;
       formHeader.style.display = 'block';
-      applicationForm.style.display = 'block';
+      applicationForm.style.display = 'none';
+      document.getElementById('applicationEmbed').style.display = 'block';
       formHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     const languageSelect = document.getElementById('languageSelect');
@@ -454,21 +516,21 @@
 
           let message;
           if (errorCodes.includes('NO_FILE_UPLOADS')) {
-            message = 'Your application was not sent. This form does not currently support screenshot uploads. Please remove the BAG SCREENSHOT and submit again.';
+            message = 'Your application was not sent. This Formspree form does not currently support screenshot uploads. Please remove the BAG SCREENSHOT and submit again, or enable file uploads for this form in your Formspree plan.';
           } else if (errorCodes.includes('FILES_TOO_BIG')) {
             message = 'Your application was not sent because a screenshot is too large. Please use an image smaller than 25 MB and try again.';
           } else if (errorCodes.includes('TOO_MANY_FILES')) {
             message = 'Your application was not sent because too many screenshots were attached. Please attach no more than 10 images.';
           } else if (errorCodes.includes('INACTIVE') || errorCodes.includes('BLOCKED')) {
-            message = 'Your application form is currently inactive or blocked. Please contact WIS leadership.';
+            message = 'Your application form is currently inactive or blocked in Formspree. Please contact WIS leadership.';
           } else if (errorCodes.includes('REQUIRED_FIELD_MISSING') || errorCodes.includes('REQUIRED_FIELD_EMPTY')) {
             message = 'Some required information is missing. Please review the form and complete all required fields.';
           } else if (apiMessages.length) {
-            message = 'Could not accept this application. Please contact WIS leadership. ' + apiMessages.join(' • ');
+            message = 'Formspree could not accept this application: ' + apiMessages.join(' • ');
           } else if (response.status === 429) {
             message = 'Too many applications were submitted in a short time. Please wait a minute and try again.';
           } else {
-            message = 'Form returned an error (HTTP ' + response.status + '). Please check the form settings or try again later.';
+            message = 'Formspree returned an error (HTTP ' + response.status + '). Please check the form settings or try again later.';
           }
 
           notice.className = 'notice error';
