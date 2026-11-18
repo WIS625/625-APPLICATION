@@ -64,8 +64,33 @@
     .notice.success { display:block; color:#d7f0df; border:1px solid #557d61; background:#203b2a88; }
     footer { text-align:center; margin-top:20px; color:#71818c; font-size:11px; letter-spacing:.06em; }
     .required { color:var(--gold2); }
-    @media(max-width:620px) {
+
+    .landing { position:relative; width:100%; min-height:100vh; min-height:100svh; overflow:hidden; display:flex; align-items:flex-end; justify-content:center; isolation:isolate; background:#080d12; }
+    .landing-art { position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; object-position:center 35%; }
+    .landing-shade { position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,rgba(5,9,14,.38) 0%,rgba(5,9,14,.05) 32%,rgba(5,9,14,.42) 55%,rgba(5,9,14,.94) 100%); }
+    .landing-language { position:absolute; top:max(18px,env(safe-area-inset-top)); right:clamp(16px,5vw,48px); z-index:4; display:flex; align-items:center; gap:10px; padding:7px 12px; border:1px solid #aaa18e88; background:#101317dd; backdrop-filter:blur(10px); }
+    .language-globe { color:#e4e0d5; font-size:22px; line-height:1; }
+    .landing-language select { width:auto; min-width:145px; max-width:220px; min-height:38px; border:0; border-radius:0; background:transparent; color:#f4f1e9; padding:5px 28px 5px 4px; font-size:15px; }
+    .landing-language select option { background:#25272b; color:#f5f5f5; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .landing-copy { width:min(100%,760px); padding:24px clamp(22px,5vw,56px) max(34px,calc(30px + env(safe-area-inset-bottom))); color:#f4f0e8; text-shadow:0 2px 14px #000b; }
+    .landing-kicker { color:#e7ded0; font-size:clamp(14px,2vw,20px); font-weight:700; margin-bottom:6px; }
+    .landing-label { color:#d99a4d; font-size:clamp(18px,3vw,28px); font-weight:900; letter-spacing:.32em; }
+    .landing-number { font-size:clamp(72px,15vw,138px); font-weight:950; line-height:.9; letter-spacing:-.06em; color:#f2e8d2; }
+    .landing-copy h1 { margin:22px 0 8px; font-size:clamp(25px,4.5vw,42px); letter-spacing:0; line-height:1.08; }
+    .landing-copy p { max-width:640px; margin:0 0 22px; color:#eee9df; font-size:clamp(15px,2vw,19px); line-height:1.55; }
+    .landing-cta { width:100%; max-width:680px; min-height:62px; border:0; border-radius:0; background:#e66c2e; color:#17110d; font-size:clamp(16px,2vw,21px); font-weight:900; letter-spacing:.02em; box-shadow:none; }
+    .landing-cta:hover { background:#f07a3b; filter:none; }
+    body:has(.landing:not([hidden])) { overflow:hidden; }
+    body:has(.landing:not([hidden])) .topline { display:none; }
+    body:has(.landing:not([hidden])) .wrap { width:100%; max-width:none; margin:0; }
+\n    @media(max-width:620px) {
       .wrap { margin-top:25px; }
+      .landing-art { object-position:50% 30%; }
+      .landing-copy { padding:20px 22px max(28px,calc(24px + env(safe-area-inset-bottom))); }
+      .landing-number { font-size:clamp(76px,23vw,120px); }
+      .landing-language { right:14px; top:max(14px,env(safe-area-inset-top)); }
+      .landing-language select { min-width:125px; max-width:180px; font-size:14px; }
       .section, .intro, .actions { padding-left:17px; padding-right:17px; }
       .grid { grid-template-columns:1fr; gap:13px; }
       .field.full { grid-column:auto; }
@@ -77,9 +102,40 @@
   <div class="topline"></div>
   <main class="wrap">
 
-    <section id="landing" style="width:min(100%,680px);margin:0 auto 28px;display:flex;flex-direction:column;align-items:center;gap:18px;">
-      <img src="wis-landing-duck.png" alt="WIS duck mascot welcoming applicants to State 625" style="display:block;width:100%;height:auto;object-fit:contain;border:1px solid #394754;border-radius:12px;">
-      <button id="openApplication" type="button" style="width:min(260px,80%);padding:15px 24px;letter-spacing:.16em;">APPLY NOW</button>
+    <section id="landing" class="landing">
+      <img class="landing-art" src="wis-landing-duck.png" alt="State 625 royal duck mascot and snowy fortress">
+      <div class="landing-shade"></div>
+      <div class="landing-language">
+        <span class="language-globe" aria-hidden="true">◎</span>
+        <label class="sr-only" for="languageSelect">Choose language</label>
+        <select id="languageSelect" aria-label="Choose language">
+          <option value="en">🇬🇧 English</option>
+          <option value="fil">🇵🇭 Filipino</option>
+          <option value="vi">🇻🇳 Tiếng Việt</option>
+          <option value="ko">🇰🇷 한국어</option>
+          <option value="zh-tw">🇹🇼 繁體中文</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="ja">🇯🇵 日本語</option>
+          <option value="th">🇹🇭 ไทย</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="pt">🇵🇹 Português</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="it">🇮🇹 Italiano</option>
+          <option value="tr">🇹🇷 Türkçe</option>
+          <option value="ru">🇷🇺 Русский</option>
+          <option value="ar">🇸🇦 العربية</option>
+          <option value="id">🇮🇩 Bahasa Indonesia</option>
+        </select>
+      </div>
+      <div class="landing-copy">
+        <div class="landing-kicker">DARK WAR: SURVIVAL</div>
+        <div class="landing-label">STATE</div>
+        <div class="landing-number">625</div>
+        <h1>Now recruiting migrants</h1>
+        <p>Thinking of moving to State 625? Send an application and the leadership will get back to you.</p>
+        <button id="openApplication" class="landing-cta" type="button">APPLY NOW <span aria-hidden="true">›</span></button>
+      </div>
     </section>
     <header id="formHeader" style="display:none">
       <div class="crest">WIS</div>
@@ -244,13 +300,20 @@
     const applicationForm = document.getElementById('applicationForm');
     document.getElementById('openApplication').addEventListener('click', () => {
       landing.hidden = true;
+      const languageBar = document.querySelector('.landing-language');
+      if (languageBar && !formHeader.contains(languageBar)) formHeader.prepend(languageBar);
+      languageBar.style.position = 'static';
+      languageBar.style.width = 'fit-content';
+      languageBar.style.margin = '0 auto 18px';
       formHeader.style.display = 'block';
       applicationForm.style.display = 'block';
       formHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     const languageSelect = document.getElementById('languageSelect');
     languageSelect.addEventListener('change', () => {
-      const dict = translations[languageSelect.value] || translations.en;
+      const selectedLanguage = languageSelect.value;
+      const languageFallback = ({'zh-tw':'zh', es:'en', pt:'en', fr:'en', de:'en', it:'en', tr:'en', ru:'en', ar:'en', id:'en'})[selectedLanguage] || selectedLanguage;
+      const dict = translations[languageFallback] || translations.en;
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         if (dict[key]) {
