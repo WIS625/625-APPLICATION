@@ -120,8 +120,8 @@
       display:block;
       width:100%;
       height:100%;
-      object-fit:contain;
-      object-position:center;
+      object-fit:cover;
+      object-position:center center;
     }
     .landing-apply {
       position:absolute;
@@ -145,35 +145,36 @@
     }
     .landing-apply:active { transform:translateX(-50%) scale(.985); }
     @media (min-width:700px) {
-      .landing-poster img { width:auto; max-width:100%; height:100%; }
       .landing-apply { bottom:28px; }
     }
     [hidden] { display:none !important; }
   
-    .application-embed {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto 28px;
-      padding: 0;
-      overflow: visible;
+
+    .application-panel {
+      background: linear-gradient(180deg, rgba(23,35,46,.97), rgba(16,25,34,.98));
       border: 1px solid var(--line);
-      border-radius: 18px;
-      background: transparent;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 24px 70px #0007;
     }
-    .application-embed iframe {
+    .tally-frame {
+      width: 100%;
+      min-height: 720px;
+      background: transparent;
+      overflow: hidden;
+    }
+    .tally-frame iframe {
       display: block;
       width: 100%;
-      min-height: 700px;
+      min-height: 720px;
       border: 0;
-      border-radius: 18px;
       background: transparent;
     }
     @media (max-width: 600px) {
-      .application-embed { border-radius: 14px; }
-      .application-embed iframe { min-height: 900px; border-radius: 14px; }
+      .tally-frame, .tally-frame iframe { min-height: 900px; }
     }
-\n  </style>
-  <script async src="https://tally.so/widgets/embed.js"></script>\n</head>
+  </style>
+  <script async src="https://tally.so/widgets/embed.js"></script></head>
 <body class="landing-mode">
   <div class="topline"></div>
   <main class="wrap">
@@ -195,200 +196,24 @@
 
     <!-- SETUP: Replace YOUR_FORMSPREE_ID with your Formspree form ID.
          Create a form at https://formspree.io/ and paste the ID below. -->
-    <form id="applicationForm" style="display:none" action="https://formspree.io/f/xjywwjzo" method="POST" enctype="multipart/form-data">
-      <div style="max-width:320px;margin:0 24px 18px;text-align:left;padding-top:20px">
-        <label for="languageSelect" style="display:block;margin-bottom:6px;color:#d7e0e4"><span data-i18n="languageLabel">LANGUAGE</span></label>
-        <select id="languageSelect" aria-label="Select language">
-          <option value="en">🇬🇧 English</option>
-          <option value="ko">🇰🇷 한국어</option>
-          <option value="zh-Hant">🇹🇼 繁體中文</option>
-          <option value="zh-Hans">🇨🇳 简体中文</option>
-          <option value="ja">🇯🇵 日本語</option>
-          <option value="th">🇹🇭 ไทย</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="pt">🇵🇹 Português</option>
-                    <option value="de">🇩🇪 Deutsch</option>
-                    <option value="tr">🇹🇷 Türkçe</option>
-                    <option value="ar">🇸🇦 العربية</option>
-          <option value="vi">🇻🇳 Tiếng Việt</option>
-          <option value="id">🇮🇩 Bahasa Indonesia</option>
-        </select>
-      </div>
+    <div id="applicationForm" class="application-panel" style="display:none">
       <div class="intro">
-        <span data-i18n="intro">Please complete the application accurately. Fields marked</span>
-        <span class="required">*</span> <span data-i18n="intro2">are required. Your details will be reviewed by WIS leadership. Submitting this form does not guarantee acceptance.</span>
+        Please complete the application accurately. Fields marked
+        <span class="required">*</span> are required. Your details will be reviewed by WIS leadership.
+        Submitting this form does not guarantee acceptance.
       </div>
-
-      <section class="section">
-        <h2 class="section-title"><span class="num">01</span> <span data-i18n="playerSection">PLAYER INFORMATION</span></h2>
-        <div class="grid">
-          <div class="field">
-            <label for="playerName" data-i18n="playerName">In-game name <span class="required">*</span></label>
-            <input id="playerName" name="In-game name" required maxlength="60" placeholder="Your player name" data-i18n-placeholder="phPlayerName">
-          </div>
-          <div class="field">
-            <label for="playerId" data-i18n="playerId">Player ID <span class="required">*</span></label>
-            <input id="playerId" name="Player ID" required inputmode="numeric" placeholder="Your in-game ID" data-i18n-placeholder="phPlayerId">
-          </div>
-          <div class="field">
-            <label for="currentState" data-i18n="currentState">Current state <span class="required">*</span></label>
-            <input id="currentState" name="Current state" required placeholder="e.g. 620" data-i18n-placeholder="phState">
-          </div>
-          <div class="field">
-            <label for="currentAlliance" data-i18n="currentAlliance">Current alliance <span class="required">*</span></label>
-            <input id="currentAlliance" name="Current alliance" required placeholder="Alliance tag / name" data-i18n-placeholder="phAlliance">
-          </div>
-          <div class="field">
-            <label for="allianceRole" data-i18n="currentAllianceRole">Current alliance role</label>
-            <select id="allianceRole" name="Current alliance role">
-              <option value="Member" data-i18n-option="member">Member</option>
-              <option value="R4">R4</option>
-              <option value="R5">R5</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="preferredContact" data-i18n="preferredContact">Preferred contact method <span class="required">*</span></label>
-            <select id="preferredContact" name="Preferred contact" required>
-              <option value="In-game" data-i18n-option="inGame">In-game</option>
-              <option value="Discord" data-i18n-option="discord">Discord</option>
-            </select>
-          </div>
-          <div class="field" id="discordUsernameField" hidden>
-            <label for="discordUsername" data-i18n="discordUsername">Discord username <span class="required">*</span></label>
-            <input id="discordUsername" name="Discord username" maxlength="80" placeholder="Enter your Discord username" data-i18n-placeholder="phDiscord">
-          </div>
-          <div class="field">
-            <label for="preferredAlliance" data-i18n="preferredAlliance">Alliance You Want To Apply</label>
-            <select id="preferredAlliance" name="Preferred WIS group">
-              <option value="">Select preference</option>
-              <option>WIS</option>
-              <option>PUMA</option>
-              <option>x77</option>
-              <option>GLDA</option>
-              <option>TNP</option>
-              <option>BAO</option>
-              <option>OTHERS</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="backupAlliance" data-i18n="backupAlliance">Backup preference</label>
-            <input id="backupAlliance" name="Backup preference" placeholder="Optional" data-i18n-placeholder="phOptional">
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2 class="section-title"><span class="num">02</span> <span data-i18n="powerSection">ACCOUNT & POWER</span></h2>
-        <div class="grid">
-          <div class="field">
-            <label for="watchtower" data-i18n="watchtower">Watchtower level</label>
-            <input id="watchtower" name="Watchtower level" placeholder="e.g. 30" data-i18n-placeholder="phLevel">
-          </div>
-          <div class="field">
-            <label for="overallPower" data-i18n="overallPower">Overall CP <span class="required">*</span></label>
-            <input id="overallPower" name="Overall CP" required placeholder="e.g. 250M" data-i18n-placeholder="phPower">
-          </div>
-          <div class="field">
-            <label for="march1" data-i18n="march1">1st march power</label>
-            <input id="march1" name="1st march power" placeholder="e.g. 25M" data-i18n-placeholder="phMarch">
-          </div>
-          <div class="field">
-            <label for="march2" data-i18n="march2">2nd march power</label>
-            <input id="march2" name="2nd march power" placeholder="e.g. 22M" data-i18n-placeholder="phMarch">
-          </div>
-          <div class="field">
-            <label for="march3" data-i18n="march3">3rd march power</label>
-            <input id="march3" name="3rd march power" placeholder="e.g. 20M" data-i18n-placeholder="phMarch">
-          </div>
-          <div class="field">
-            <label for="march4" data-i18n="march4">4th march power</label>
-            <input id="march4" name="4th march power" placeholder="Optional" data-i18n-placeholder="phOptional">
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2 class="section-title"><span class="num">03</span> <span data-i18n="activitySection">ACTIVITY & BACKGROUND</span></h2>
-        <div class="grid">
-          <div class="field">
-            <label for="activity" data-i18n="activity">Usual activity / time zone</label>
-            <input id="activity" name="Usual activity / time zone" placeholder="e.g. Daily, UTC+8" data-i18n-placeholder="phActivity">
-          </div>
-          <div class="field">
-            <label for="role" data-i18n="role">Preferred play style</label>
-            <select id="role" name="Preferred play style">
-              <option value="">Select one</option>
-              <option>Competitive / PvP</option>
-              <option>Events and rallies</option>
-              <option>Growth / development</option>
-              <option>Casual but active</option>
-              <option>Flexible</option>
-            </select>
-          </div>
-          <div class="field full">
-            <label for="reason" data-i18n="reason">Why do you want to join 625 <span class="required">*</span></label>
-            <textarea id="reason" name="Why do you want to join 625?" required maxlength="2000" placeholder="Tell us why you want to join State 625..." data-i18n-placeholder="phReason"></textarea>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2 class="section-title"><span class="num">04</span> <span data-i18n="proofSection">SNIPS & CONFIRMATION</span></h2>
-        <div class="grid">
-          <div class="field full">
-            <label for="screenshots" data-i18n="bag">BAG SCREENSHOT <span class="hint">(optional)</span></label>
-            <input id="screenshots" type="file" name="Screenshots" accept="image/*" multiple>
-            <span class="hint"><span data-i18n="bagHint">Upload a clear screenshot of your in-game bag. You can select more than one image.</span></span>
-          </div>
-        </div>
-        <label class="checkrow">
-          <input type="checkbox" name="Information confirmation" value="Confirmed" required>
-          <span><span data-i18n="confirm">I confirm that the information provided is accurate and understand that WIS leadership may contact me for further details.</span> <span class="required">*</span></span>
-        </label>
-      </section>
-
-      <div class="actions">
-        <button id="submitButton" type="submit" data-i18n="submit">SUBMIT APPLICATION</button>
-        <div id="formNotice" class="notice" role="status" aria-live="polite"></div>
+      <div class="tally-frame">
+        <iframe
+          data-tally-src="https://tally.so/embed/gbqYr1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          loading="lazy"
+          width="100%"
+          height="200"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="WIS Migration Application">
+        </iframe>
       </div>
-    </form>
-
-    <div id="applicationEmbed" class="application-embed" style="display:none">
-      <iframe
-        data-tally-src="https://tally.so/embed/gbqYr1?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-        loading="lazy"
-        width="100%"
-        height="200"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
-        title="WIS Migration Application">
-      </iframe>
-      <script>
-        (function () {
-          var d = document;
-          var w = "https://tally.so/widgets/embed.js";
-          function loadTally() {
-            if (typeof Tally !== "undefined") {
-              Tally.loadEmbeds();
-            } else {
-              d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function (e) {
-                e.src = e.dataset.tallySrc;
-              });
-            }
-          }
-          if (typeof Tally !== "undefined") {
-            loadTally();
-          } else if (!d.querySelector('script[src="' + w + '"]')) {
-            var s = d.createElement("script");
-            s.src = w;
-            s.async = true;
-            s.onload = loadTally;
-            s.onerror = loadTally;
-            d.body.appendChild(s);
-          }
-        })();
-      </script>
     </div>
     <footer data-i18n="footer">WIS • STATE 625 • APPLICATION PORTAL</footer>
   </main>
@@ -419,8 +244,13 @@
       document.body.classList.remove('landing-mode');
       landing.hidden = true;
       formHeader.style.display = 'block';
-      applicationForm.style.display = 'none';
-      document.getElementById('applicationEmbed').style.display = 'block';
+      applicationForm.style.display = 'block';
+      if (window.Tally && typeof window.Tally.loadEmbeds === 'function') {
+        window.Tally.loadEmbeds();
+      } else {
+        var tallyFrame = applicationForm.querySelector('iframe[data-tally-src]');
+        if (tallyFrame && !tallyFrame.src) tallyFrame.src = tallyFrame.dataset.tallySrc;
+      }
       formHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     const languageSelect = document.getElementById('languageSelect');
@@ -474,78 +304,7 @@
     preferredContact.addEventListener('change', updateContactFields);
     updateContactFields();
 
-    const form = document.getElementById('applicationForm');
-    const notice = document.getElementById('formNotice');
-    const button = document.getElementById('submitButton');
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      notice.className = 'notice';
-      notice.textContent = '';
-      if (!form.reportValidity()) return;
-      if (!form.action.includes('formspree.io/f/xjywwjzo')) {
-        notice.className = 'notice error';
-        notice.textContent = 'The application form endpoint is not configured correctly. Please contact WIS leadership.';
-        return;
-      }
-      button.disabled = true;
-      button.textContent = 'SUBMITTING...';
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-        const responseText = await response.text();
-        let result = {};
-        try {
-          result = responseText ? JSON.parse(responseText) : {};
-        } catch (_) {
-          result = {};
-        }
-
-        if (response.ok && result.ok !== false) {
-          form.reset();
-          notice.className = 'notice success';
-          notice.textContent = 'Application submitted. Thank you for applying to WIS!';
-        } else {
-          const apiErrors = Array.isArray(result.errors) ? result.errors : [];
-          const errorCodes = apiErrors.map(item => String(item.code || '').toUpperCase());
-          const apiMessages = apiErrors
-            .map(item => item.message || item.field)
-            .filter(Boolean);
-
-          let message;
-          if (errorCodes.includes('NO_FILE_UPLOADS')) {
-            message = 'Your application was not sent. This Formspree form does not currently support screenshot uploads. Please remove the BAG SCREENSHOT and submit again, or enable file uploads for this form in your Formspree plan.';
-          } else if (errorCodes.includes('FILES_TOO_BIG')) {
-            message = 'Your application was not sent because a screenshot is too large. Please use an image smaller than 25 MB and try again.';
-          } else if (errorCodes.includes('TOO_MANY_FILES')) {
-            message = 'Your application was not sent because too many screenshots were attached. Please attach no more than 10 images.';
-          } else if (errorCodes.includes('INACTIVE') || errorCodes.includes('BLOCKED')) {
-            message = 'Your application form is currently inactive or blocked in Formspree. Please contact WIS leadership.';
-          } else if (errorCodes.includes('REQUIRED_FIELD_MISSING') || errorCodes.includes('REQUIRED_FIELD_EMPTY')) {
-            message = 'Some required information is missing. Please review the form and complete all required fields.';
-          } else if (apiMessages.length) {
-            message = 'Formspree could not accept this application: ' + apiMessages.join(' • ');
-          } else if (response.status === 429) {
-            message = 'Too many applications were submitted in a short time. Please wait a minute and try again.';
-          } else {
-            message = 'Formspree returned an error (HTTP ' + response.status + '). Please check the form settings or try again later.';
-          }
-
-          notice.className = 'notice error';
-          notice.textContent = message;
-          notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      } catch (error) {
-        notice.className = 'notice error';
-        notice.textContent = 'We could not reach Formspree. Please check your internet connection and try again. If the problem continues, contact WIS leadership.';
-        notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } finally {
-        button.disabled = false;
-        button.textContent = 'SUBMIT APPLICATION';
-      }
-    });
+    // Tally handles application submission and file uploads inside the embedded form.
   </script>
 </body>
 </html>
