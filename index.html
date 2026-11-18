@@ -84,6 +84,17 @@
       .landing-cta { padding-top:8px; }
     }
 
+
+    body.landing-mode { min-height:100svh; overflow:hidden; background:#070b10; }
+    body.landing-mode .topline { display:none; }
+    body.landing-mode .wrap { width:100%; max-width:none; height:100svh; min-height:100svh; margin:0; padding:0; }
+    #landing { position:relative; width:100%; height:100svh; min-height:100svh; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#080d13; }
+    .landing-backdrop { position:absolute; inset:-24px; background-image:url('wis-landing-duck.png'); background-size:cover; background-position:center; filter:blur(18px) brightness(.43); transform:scale(1.06); }
+    .landing-poster { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+    .landing-poster img { display:block; width:100%; height:100%; object-fit:contain; object-position:center; }
+    .landing-apply { position:absolute; z-index:3; left:50%; bottom:calc(22px + env(safe-area-inset-bottom)); transform:translateX(-50%); width:min(82%,560px); min-height:68px; padding:16px 22px; border:2px solid #e7c77e; border-radius:13px; background:linear-gradient(180deg,#b92319,#76130f); color:#ffe6a5; font-size:clamp(17px,3.5vw,25px); font-weight:950; letter-spacing:.08em; text-shadow:0 2px 2px #000; box-shadow:0 8px 28px #000a; }
+    .landing-apply:hover { filter:brightness(1.08); }
+
     [hidden] { display:none !important; }
   </style>
 </head>
@@ -91,13 +102,10 @@
   <div class="topline"></div>
   <main class="wrap">
 
-    <section id="landing">
-      <div class="landing-art">
-        <img src="wis-landing-duck.png" alt="State 625 crowned duck mascot and snowy fortress">
-      </div>
-      <div class="landing-cta">
-        <button id="openApplication" type="button">APPLY NOW ›</button>
-      </div>
+    <section id="landing" aria-label="WIS State 625 welcome">
+      <div class="landing-backdrop" aria-hidden="true"></div>
+      <div class="landing-poster"><img src="wis-landing-duck.png" alt="State 625 crowned duck mascot and snowy fortress"></div>
+      <button id="openApplication" class="landing-apply" type="button">APPLY NOW ›</button>
     </section>
     <header id="formHeader" style="display:none">
       <div class="crest">WIS</div>
@@ -111,7 +119,7 @@
          Create a form at https://formspree.io/ and paste the ID below. -->
     <form id="applicationForm" style="display:none" action="https://formspree.io/f/xjywwjzo" method="POST" enctype="multipart/form-data">
       <div style="max-width:320px;margin:0 24px 18px;text-align:left;padding-top:20px">
-        <label for="languageSelect" style="display:block;margin-bottom:6px;color:#d7e0e4">LANGUAGE / 语言</label>
+        <label for="languageSelect" style="display:block;margin-bottom:6px;color:#d7e0e4"><span data-i18n="languageLabel">LANGUAGE</span></label>
         <select id="languageSelect" aria-label="Select language">
           <option value="en">🇬🇧 English</option>
           <option value="ko">🇰🇷 한국어</option>
@@ -121,19 +129,16 @@
           <option value="th">🇹🇭 ไทย</option>
           <option value="es">🇪🇸 Español</option>
           <option value="pt">🇵🇹 Português</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="de">🇩🇪 Deutsch</option>
-          <option value="it">🇮🇹 Italiano</option>
-          <option value="tr">🇹🇷 Türkçe</option>
-          <option value="ru">🇷🇺 Русский</option>
-          <option value="ar">🇸🇦 العربية</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="tr">🇹🇷 Türkçe</option>
+                    <option value="ar">🇸🇦 العربية</option>
           <option value="vi">🇻🇳 Tiếng Việt</option>
           <option value="id">🇮🇩 Bahasa Indonesia</option>
         </select>
       </div>
       <div class="intro">
-        Please complete the application accurately. Fields marked <span class="required">*</span> are required.
-        Your details will be reviewed by WIS leadership. Submitting this form does not guarantee acceptance.
+        <span data-i18n="intro">Please complete the application accurately. Fields marked</span>
+        <span class="required">*</span> <span data-i18n="intro2">are required. Your details will be reviewed by WIS leadership. Submitting this form does not guarantee acceptance.</span>
       </div>
 
       <section class="section">
@@ -141,19 +146,19 @@
         <div class="grid">
           <div class="field">
             <label for="playerName" data-i18n="playerName">In-game name <span class="required">*</span></label>
-            <input id="playerName" name="In-game name" required maxlength="60" placeholder="Your player name">
+            <input id="playerName" name="In-game name" required maxlength="60" placeholder="Your player name" data-i18n-placeholder="phPlayerName">
           </div>
           <div class="field">
             <label for="playerId" data-i18n="playerId">Player ID <span class="required">*</span></label>
-            <input id="playerId" name="Player ID" required inputmode="numeric" placeholder="Your in-game ID">
+            <input id="playerId" name="Player ID" required inputmode="numeric" placeholder="Your in-game ID" data-i18n-placeholder="phPlayerId">
           </div>
           <div class="field">
             <label for="currentState" data-i18n="currentState">Current state <span class="required">*</span></label>
-            <input id="currentState" name="Current state" required placeholder="e.g. 620">
+            <input id="currentState" name="Current state" required placeholder="e.g. 620" data-i18n-placeholder="phState">
           </div>
           <div class="field">
             <label for="currentAlliance" data-i18n="currentAlliance">Current alliance <span class="required">*</span></label>
-            <input id="currentAlliance" name="Current alliance" required placeholder="Alliance tag / name">
+            <input id="currentAlliance" name="Current alliance" required placeholder="Alliance tag / name" data-i18n-placeholder="phAlliance">
           </div>
           <div class="field">
             <label for="preferredAlliance" data-i18n="preferredAlliance">Alliance You Want To Apply</label>
@@ -170,7 +175,7 @@
           </div>
           <div class="field">
             <label for="backupAlliance" data-i18n="backupAlliance">Backup preference</label>
-            <input id="backupAlliance" name="Backup preference" placeholder="Optional">
+            <input id="backupAlliance" name="Backup preference" placeholder="Optional" data-i18n-placeholder="phOptional">
           </div>
         </div>
       </section>
@@ -180,27 +185,27 @@
         <div class="grid">
           <div class="field">
             <label for="watchtower" data-i18n="watchtower">Watchtower level</label>
-            <input id="watchtower" name="Watchtower level" placeholder="e.g. 30">
+            <input id="watchtower" name="Watchtower level" placeholder="e.g. 30" data-i18n-placeholder="phLevel">
           </div>
           <div class="field">
             <label for="overallPower" data-i18n="overallPower">Overall CP <span class="required">*</span></label>
-            <input id="overallPower" name="Overall CP" required placeholder="e.g. 250M">
+            <input id="overallPower" name="Overall CP" required placeholder="e.g. 250M" data-i18n-placeholder="phPower">
           </div>
           <div class="field">
             <label for="march1" data-i18n="march1">1st march power</label>
-            <input id="march1" name="1st march power" placeholder="e.g. 25M">
+            <input id="march1" name="1st march power" placeholder="e.g. 25M" data-i18n-placeholder="phMarch">
           </div>
           <div class="field">
             <label for="march2" data-i18n="march2">2nd march power</label>
-            <input id="march2" name="2nd march power" placeholder="e.g. 22M">
+            <input id="march2" name="2nd march power" placeholder="e.g. 22M" data-i18n-placeholder="phMarch">
           </div>
           <div class="field">
             <label for="march3" data-i18n="march3">3rd march power</label>
-            <input id="march3" name="3rd march power" placeholder="e.g. 20M">
+            <input id="march3" name="3rd march power" placeholder="e.g. 20M" data-i18n-placeholder="phMarch">
           </div>
           <div class="field">
             <label for="march4" data-i18n="march4">4th march power</label>
-            <input id="march4" name="4th march power" placeholder="Optional">
+            <input id="march4" name="4th march power" placeholder="Optional" data-i18n-placeholder="phOptional">
           </div>
         </div>
       </section>
@@ -210,7 +215,7 @@
         <div class="grid">
           <div class="field">
             <label for="activity" data-i18n="activity">Usual activity / time zone</label>
-            <input id="activity" name="Usual activity / time zone" placeholder="e.g. Daily, UTC+8">
+            <input id="activity" name="Usual activity / time zone" placeholder="e.g. Daily, UTC+8" data-i18n-placeholder="phActivity">
           </div>
           <div class="field">
             <label for="role" data-i18n="role">Preferred play style</label>
@@ -225,7 +230,7 @@
           </div>
           <div class="field full">
             <label for="reason" data-i18n="reason">Why do you want to join 625 <span class="required">*</span></label>
-            <textarea id="reason" name="Why do you want to join 625?" required maxlength="2000" placeholder="Tell us why you want to join State 625..."></textarea>
+            <textarea id="reason" name="Why do you want to join 625?" required maxlength="2000" placeholder="Tell us why you want to join State 625..." data-i18n-placeholder="phReason"></textarea>
           </div>
         </div>
       </section>
@@ -262,6 +267,14 @@
       ja: {state:"STATE 625 • DARK WAR",application:"移民申請フォーム",intake:"メンバー募集中",intro:"申請内容を正確に入力してください。",intro2:"が付いた項目は必須です。WIS幹部が内容を確認します。送信しても加入が確約されるわけではありません。",playerSection:"プレイヤー情報",powerSection:"アカウントと戦力",activitySection:"活動状況・プロフィール",proofSection:"証明・確認",playerName:"ゲーム内の名前 *",playerId:"プレイヤーID *",currentState:"現在のステート *",currentAlliance:"現在の同盟 *",preferredAlliance:"応募したい同盟",backupAlliance:"第2希望",watchtower:"監視塔レベル",overallPower:"総CP *",march1:"第1部隊の戦力",march2:"第2部隊の戦力",march3:"第3部隊の戦力",march4:"第4部隊の戦力",activity:"通常の活動時間 / タイムゾーン",role:"希望するプレイスタイル",reason:"625に加入したい理由を教えてください *",bag:"バッグのスクリーンショット（任意）",bagHint:"ゲーム内バッグの鮮明なスクリーンショットをアップロードしてください。複数選択できます。",confirm:"入力した情報が正確であることを確認し、追加確認のためWIS幹部から連絡が来る場合があることに同意します。",submit:"申請を送信",footer:"WIS • STATE 625 • 申請ポータル"},
       zh: {state:"STATE 625 • DARK WAR",application:"迁服申请表",intake:"正在招募",intro:"请准确填写申请表。带有",intro2:"的项目为必填项。WIS 管理团队将审核你的资料。提交申请不代表一定会获批。",playerSection:"玩家信息",powerSection:"账号与战力",activitySection:"活跃情况与背景",proofSection:"证明与确认",playerName:"游戏昵称 *",playerId:"玩家 ID *",currentState:"当前州 *",currentAlliance:"当前联盟 *",preferredAlliance:"想申请加入的联盟",backupAlliance:"备选联盟",watchtower:"瞭望塔等级",overallPower:"总 CP *",march1:"第一队战力",march2:"第二队战力",march3:"第三队战力",march4:"第四队战力",activity:"通常活跃时间 / 时区",role:"偏好的游戏风格",reason:"你为什么想加入 625？ *",bag:"背包截图（可选）",bagHint:"请上传清晰的游戏背包截图。可以选择多张图片。",confirm:"我确认所提供的信息准确无误，并理解 WIS 管理团队可能会联系我了解更多详情。",submit:"提交申请",footer:"WIS • STATE 625 • 申请入口"},
       th: {state:"STATE 625 • DARK WAR",application:"แบบฟอร์มสมัครย้ายรัฐ",intake:"กำลังเปิดรับสมาชิก",intro:"กรุณากรอกใบสมัครให้ถูกต้อง ช่องที่มีเครื่องหมาย",intro2:"เป็นช่องบังคับ กำลังของ WIS จะตรวจสอบข้อมูลของคุณ การส่งใบสมัครไม่ได้รับประกันว่าจะได้รับการยอมรับ",playerSection:"ข้อมูลผู้เล่น",powerSection:"บัญชีและพลัง",activitySection:"กิจกรรมและประวัติ",proofSection:"หลักฐานและการยืนยัน",playerName:"ชื่อในเกม *",playerId:"ID ผู้เล่น *",currentState:"รัฐปัจจุบัน *",currentAlliance:"พันธมิตรปัจจุบัน *",preferredAlliance:"พันธมิตรที่ต้องการสมัคร",backupAlliance:"ตัวเลือกสำรอง",watchtower:"ระดับหอสังเกตการณ์",overallPower:"CP รวม *",march1:"พลังทัพที่ 1",march2:"พลังทัพที่ 2",march3:"พลังทัพที่ 3",march4:"พลังทัพที่ 4",activity:"ช่วงเวลาที่เล่น / เขตเวลา",role:"รูปแบบการเล่นที่ต้องการ",reason:"ทำไมคุณจึงต้องการเข้าร่วม 625? *",bag:"ภาพหน้าจอกระเป๋า (BAG SCREENSHOT)",bagHint:"อัปโหลดภาพหน้าจอกระเป๋าในเกมที่ชัดเจน สามารถเลือกได้หลายภาพ",confirm:"ฉันยืนยันว่าข้อมูลที่ให้ไว้ถูกต้อง และเข้าใจว่าผู้นำ WIS อาจติดต่อเพื่อขอรายละเอียดเพิ่มเติม",submit:"ส่งใบสมัคร",footer:"WIS • STATE 625 • พอร์ทัลใบสมัคร"}
+
+      ,
+      es: {state:"ESTADO 625 • DARK WAR",application:"SOLICITUD DE MIGRACIÓN",intake:"RECLUTAMIENTO ABIERTO",intro:"Completa la solicitud con precisión. Los campos marcados",intro2:"son obligatorios. El liderazgo de WIS revisará tus datos. Enviar el formulario no garantiza la aceptación.",playerSection:"INFORMACIÓN DEL JUGADOR",powerSection:"CUENTA Y PODER",activitySection:"ACTIVIDAD Y ANTECEDENTES",proofSection:"PRUEBAS Y CONFIRMACIÓN",playerName:"Nombre en el juego *",playerId:"ID del jugador *",currentState:"Estado actual *",currentAlliance:"Alianza actual *",preferredAlliance:"Alianza a la que deseas postularte",backupAlliance:"Opción alternativa",watchtower:"Nivel de torre de vigilancia",overallPower:"CP total *",march1:"Poder de marcha 1",march2:"Poder de marcha 2",march3:"Poder de marcha 3",march4:"Poder de marcha 4",activity:"Actividad habitual / zona horaria",role:"Estilo de juego preferido",reason:"¿Por qué quieres unirte a 625? *",bag:"CAPTURA DE MOCHILA (opcional)",bagHint:"Sube una captura clara de tu mochila del juego. Puedes seleccionar varias imágenes.",confirm:"Confirmo que la información es correcta y entiendo que el liderazgo de WIS puede contactarme para solicitar más detalles.",submit:"ENVIAR SOLICITUD",footer:"WIS • ESTADO 625 • PORTAL DE SOLICITUD",languageLabel:"IDIOMA",phPlayerName:"Tu nombre de jugador",phPlayerId:"Tu ID del juego",phState:"p. ej., 620",phAlliance:"Etiqueta o nombre de alianza",phOptional:"Opcional",phLevel:"p. ej., 30",phPower:"p. ej., 250M",phMarch:"p. ej., 25M",phActivity:"p. ej., Diario, UTC+8",phReason:"Cuéntanos por qué quieres unirte a 625"},
+      pt: {state:"ESTADO 625 • DARK WAR",application:"CANDIDATURA DE MIGRAÇÃO",intake:"RECRUTAMENTO ABERTO",intro:"Preencha a candidatura corretamente. Os campos marcados",intro2:"são obrigatórios. A liderança da WIS analisará os seus dados. O envio não garante aceitação.",playerSection:"INFORMAÇÕES DO JOGADOR",powerSection:"CONTA E PODER",activitySection:"ATIVIDADE E HISTÓRICO",proofSection:"COMPROVAÇÃO E CONFIRMAÇÃO",playerName:"Nome no jogo *",playerId:"ID do jogador *",currentState:"Estado atual *",currentAlliance:"Aliança atual *",preferredAlliance:"Aliança à qual deseja candidatar-se",backupAlliance:"Opção alternativa",watchtower:"Nível da torre de vigia",overallPower:"CP total *",march1:"Poder da marcha 1",march2:"Poder da marcha 2",march3:"Poder da marcha 3",march4:"Poder da marcha 4",activity:"Atividade habitual / fuso horário",role:"Estilo de jogo preferido",reason:"Por que deseja entrar em 625? *",bag:"CAPTURA DA MOCHILA (opcional)",bagHint:"Envie uma captura nítida da mochila do jogo. Pode selecionar várias imagens.",confirm:"Confirmo que as informações são corretas e compreendo que a liderança da WIS poderá entrar em contato para pedir mais detalhes.",submit:"ENVIAR CANDIDATURA",footer:"WIS • ESTADO 625 • PORTAL DE CANDIDATURA",languageLabel:"IDIOMA",phPlayerName:"Seu nome no jogo",phPlayerId:"Seu ID no jogo",phState:"ex.: 620",phAlliance:"Tag ou nome da aliança",phOptional:"Opcional",phLevel:"ex.: 30",phPower:"ex.: 250M",phMarch:"ex.: 25M",phActivity:"ex.: Diário, UTC+8",phReason:"Conte por que deseja entrar em 625"},
+      de: {state:"STAAT 625 • DARK WAR",application:"MIGRATIONSANTRAG",intake:"REKRUTIERUNG GEÖFFNET",intro:"Bitte fülle den Antrag sorgfältig aus. Die markierten Felder",intro2:"sind Pflichtfelder. Die WIS-Führung prüft deine Angaben. Das Absenden garantiert keine Aufnahme.",playerSection:"SPIELERINFORMATIONEN",powerSection:"KONTO & KAMPFKRAFT",activitySection:"AKTIVITÄT & HINTERGRUND",proofSection:"NACHWEIS & BESTÄTIGUNG",playerName:"Name im Spiel *",playerId:"Spieler-ID *",currentState:"Aktueller Staat *",currentAlliance:"Aktuelle Allianz *",preferredAlliance:"Allianz, bei der du dich bewerben möchtest",backupAlliance:"Zweite Wahl",watchtower:"Wachturm-Stufe",overallPower:"Gesamt-CP *",march1:"Kampfkraft Marsch 1",march2:"Kampfkraft Marsch 2",march3:"Kampfkraft Marsch 3",march4:"Kampfkraft Marsch 4",activity:"Übliche Aktivität / Zeitzone",role:"Bevorzugter Spielstil",reason:"Warum möchtest du 625 beitreten? *",bag:"RUCKSACK-SCREENSHOT (optional)",bagHint:"Lade einen gut lesbaren Screenshot deines Spielrucksacks hoch. Mehrere Bilder sind möglich.",confirm:"Ich bestätige die Richtigkeit meiner Angaben und weiß, dass die WIS-Führung mich für weitere Fragen kontaktieren kann.",submit:"ANTRAG SENDEN",footer:"WIS • STAAT 625 • BEWERBUNGSPORTAL",languageLabel:"SPRACHE",phPlayerName:"Dein Spielername",phPlayerId:"Deine Spiel-ID",phState:"z. B. 620",phAlliance:"Allianz-Tag / Name",phOptional:"Optional",phLevel:"z. B. 30",phPower:"z. B. 250M",phMarch:"z. B. 25M",phActivity:"z. B. täglich, UTC+8",phReason:"Warum möchtest du 625 beitreten?"},
+      tr: {state:"625. EYALET • DARK WAR",application:"GÖÇ BAŞVURUSU",intake:"ÜYE ALIMI AÇIK",intro:"Lütfen başvuruyu doğru şekilde doldurun. İşaretli alanlar",intro2:"zorunludur. Bilgileriniz WIS liderliği tarafından incelenecektir. Başvuru göndermek kabul garantisi vermez.",playerSection:"OYUNCU BİLGİLERİ",powerSection:"HESAP VE GÜÇ",activitySection:"AKTİVİTE VE GEÇMİŞ",proofSection:"KANIT VE ONAY",playerName:"Oyun içi ad *",playerId:"Oyuncu ID *",currentState:"Mevcut eyalet *",currentAlliance:"Mevcut ittifak *",preferredAlliance:"Başvurmak istediğiniz ittifak",backupAlliance:"Yedek tercih",watchtower:"Gözetleme kulesi seviyesi",overallPower:"Toplam CP *",march1:"1. yürüyüş gücü",march2:"2. yürüyüş gücü",march3:"3. yürüyüş gücü",march4:"4. yürüyüş gücü",activity:"Genel aktiflik / saat dilimi",role:"Tercih edilen oyun tarzı",reason:"Neden 625'e katılmak istiyorsunuz? *",bag:"ÇANTA EKRAN GÖRÜNTÜSÜ (isteğe bağlı)",bagHint:"Oyun içi çantanızın net bir ekran görüntüsünü yükleyin. Birden fazla görsel seçebilirsiniz.",confirm:"Verdiğim bilgilerin doğru olduğunu onaylıyorum ve WIS liderliğinin ek bilgi için benimle iletişime geçebileceğini anlıyorum.",submit:"BAŞVURUYU GÖNDER",footer:"WIS • 625. EYALET • BAŞVURU PORTALI",languageLabel:"DİL",phPlayerName:"Oyuncu adınız",phPlayerId:"Oyun içi ID'niz",phState:"örn. 620",phAlliance:"İttifak etiketi / adı",phOptional:"İsteğe bağlı",phLevel:"örn. 30",phPower:"örn. 250M",phMarch:"örn. 25M",phActivity:"örn. Her gün, UTC+8",phReason:"Neden 625'e katılmak istediğinizi yazın"},
+      ar: {state:"الولاية 625 • DARK WAR",application:"طلب انتقال",intake:"التجنيد مفتوح",intro:"يرجى تعبئة الطلب بدقة. الحقول المحددة",intro2:"مطلوبة. ستراجع قيادة WIS بياناتك. إرسال الطلب لا يضمن القبول.",playerSection:"معلومات اللاعب",powerSection:"الحساب والقوة",activitySection:"النشاط والخلفية",proofSection:"الإثبات والتأكيد",playerName:"اسم اللاعب داخل اللعبة *",playerId:"معرّف اللاعب *",currentState:"الولاية الحالية *",currentAlliance:"التحالف الحالي *",preferredAlliance:"التحالف الذي ترغب في التقديم إليه",backupAlliance:"الخيار الاحتياطي",watchtower:"مستوى برج المراقبة",overallPower:"القوة الإجمالية CP *",march1:"قوة المسيرة الأولى",march2:"قوة المسيرة الثانية",march3:"قوة المسيرة الثالثة",march4:"قوة المسيرة الرابعة",activity:"وقت النشاط المعتاد / المنطقة الزمنية",role:"أسلوب اللعب المفضل",reason:"لماذا تريد الانضمام إلى 625؟ *",bag:"لقطة شاشة للحقيبة (اختياري)",bagHint:"ارفع لقطة واضحة لحقيبتك داخل اللعبة. يمكنك اختيار أكثر من صورة.",confirm:"أؤكد أن المعلومات المقدمة صحيحة، وأفهم أن قيادة WIS قد تتواصل معي لطلب تفاصيل إضافية.",submit:"إرسال الطلب",footer:"WIS • الولاية 625 • بوابة التقديم",languageLabel:"اللغة",phPlayerName:"اسم اللاعب",phPlayerId:"معرّفك داخل اللعبة",phState:"مثال: 620",phAlliance:"رمز التحالف / اسمه",phOptional:"اختياري",phLevel:"مثال: 30",phPower:"مثال: 250M",phMarch:"مثال: 25M",phActivity:"مثال: يوميًا، UTC+8",phReason:"أخبرنا لماذا تريد الانضمام إلى 625"},
+      id: {state:"NEGARA 625 • DARK WAR",application:"FORMULIR MIGRASI",intake:"PENDAFTARAN DIBUKA",intro:"Isi formulir dengan benar. Kolom yang ditandai",intro2:"wajib diisi. Data Anda akan ditinjau oleh pimpinan WIS. Mengirim formulir tidak menjamin penerimaan.",playerSection:"INFORMASI PEMAIN",powerSection:"AKUN & KEKUATAN",activitySection:"AKTIVITAS & LATAR BELAKANG",proofSection:"BUKTI & KONFIRMASI",playerName:"Nama dalam game *",playerId:"ID pemain *",currentState:"Negara saat ini *",currentAlliance:"Aliansi saat ini *",preferredAlliance:"Aliansi yang ingin Anda lamar",backupAlliance:"Pilihan cadangan",watchtower:"Level menara pengawas",overallPower:"Total CP *",march1:"Kekuatan march 1",march2:"Kekuatan march 2",march3:"Kekuatan march 3",march4:"Kekuatan march 4",activity:"Waktu aktif / zona waktu",role:"Gaya bermain pilihan",reason:"Mengapa ingin bergabung dengan 625? *",bag:"TANGKAPAN LAYAR TAS (opsional)",bagHint:"Unggah tangkapan layar tas dalam game yang jelas. Anda dapat memilih beberapa gambar.",confirm:"Saya mengonfirmasi bahwa informasi yang diberikan benar dan memahami bahwa pimpinan WIS dapat menghubungi saya untuk detail tambahan.",submit:"KIRIM APLIKASI",footer:"WIS • NEGARA 625 • PORTAL APLIKASI",languageLabel:"BAHASA",phPlayerName:"Nama pemain Anda",phPlayerId:"ID dalam game Anda",phState:"mis. 620",phAlliance:"Tag / nama aliansi",phOptional:"Opsional",phLevel:"mis. 30",phPower:"mis. 250M",phMarch:"mis. 25M",phActivity:"mis. Setiap hari, UTC+8",phReason:"Ceritakan alasan ingin bergabung dengan 625"}
     };
 
     const landing = document.getElementById('landing');
@@ -275,21 +288,39 @@
       formHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     const languageSelect = document.getElementById('languageSelect');
-    languageSelect.addEventListener('change', () => {
-      const languageKey = languageSelect.value.startsWith('zh-') ? 'zh' : languageSelect.value;
-      const dict = translations[languageKey] || translations.en;
+    function applyLanguage() {
+      const raw = languageSelect.value;
+      const key = raw.startsWith('zh-') ? 'zh' : raw;
+      const dict = translations[key] || translations.en;
+      document.documentElement.lang = raw;
+      document.documentElement.dir = raw === 'ar' ? 'rtl' : 'ltr';
       document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (dict[key]) {
+        const k = el.dataset.i18n;
+        if (dict[k]) {
           if (el.tagName === 'LABEL' && el.querySelector('.required')) {
             const star = el.querySelector('.required').outerHTML;
-            el.innerHTML = dict[key].replace(' *', '') + ' ' + star;
-          } else {
-            el.textContent = dict[key];
-          }
+            el.innerHTML = dict[k].replace(' *', '') + ' ' + star;
+          } else el.textContent = dict[k];
         }
       });
-    });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const k = el.dataset.i18nPlaceholder;
+        if (dict[k]) el.placeholder = dict[k];
+      });
+      const prompts = {
+        en:["Select preference","Select one"], es:["Selecciona una preferencia","Selecciona una opción"],
+        pt:["Selecione uma preferência","Selecione uma opção"], de:["Auswahl treffen","Bitte auswählen"],
+        tr:["Tercih seçin","Birini seçin"], ar:["اختر التفضيل","اختر واحدًا"], id:["Pilih preferensi","Pilih satu"],
+        ko:["선호 항목 선택","하나 선택"], ja:["希望を選択","1つ選択"], zh:["选择偏好","请选择"],
+        th:["เลือกตัวเลือก","เลือกหนึ่ง项"], vi:["Chọn ưu tiên","Chọn một"]
+      }[key] || ["Select preference","Select one"];
+      const ap=document.querySelector('#preferredAlliance option[value=""]');
+      const rp=document.querySelector('#role option[value=""]');
+      if(ap) ap.textContent=prompts[0];
+      if(rp) rp.textContent=prompts[1];
+    }
+    languageSelect.addEventListener('change', applyLanguage);
+    applyLanguage();
 
     const form = document.getElementById('applicationForm');
     const notice = document.getElementById('formNotice');
