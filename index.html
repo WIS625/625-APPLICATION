@@ -105,7 +105,7 @@
 
     <!-- SETUP: Replace YOUR_FORMSPREE_ID with your Formspree form ID.
          Create a form at https://formspree.io/ and paste the ID below. -->
-    <form id="applicationForm" style="display:none" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" enctype="multipart/form-data">
+    <form id="applicationForm" style="display:none" action="https://formspree.io/f/xjywwjzo" method="POST" enctype="multipart/form-data">
       <div class="intro">
         Please complete the application accurately. Fields marked <span class="required">*</span> are required.
         Your details will be reviewed by WIS leadership. Submitting this form does not guarantee acceptance.
@@ -272,9 +272,9 @@
       notice.className = 'notice';
       notice.textContent = '';
       if (!form.reportValidity()) return;
-      if (form.action.includes('YOUR_FORMSPREE_ID')) {
+      if (!form.action.includes('formspree.io/f/xjywwjzo')) {
         notice.className = 'notice error';
-        notice.textContent = 'This form is not connected yet. Follow the README instructions to connect Formspree before publishing.';
+        notice.textContent = 'The application form endpoint is not configured correctly. Please contact WIS leadership.';
         return;
       }
       button.disabled = true;
