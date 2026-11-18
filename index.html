@@ -71,30 +71,83 @@
       .field.full { grid-column:auto; }
     }
   
-    body.landing-mode { min-height:100svh; overflow:hidden; background:#080d12; }
-    body.landing-mode .topline { display:none; }
-    body.landing-mode .wrap { width:100%; max-width:none; height:100svh; min-height:100svh; margin:0; padding:0; }
-    #landing { width:100%; height:100svh; min-height:100svh; display:flex; flex-direction:column; background:#080d12; }
-    .landing-art { flex:1 1 auto; min-height:0; width:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:0; }
-    .landing-art img { display:block; width:auto; height:auto; max-width:100%; max-height:100%; object-fit:contain; object-position:center; }
-    .landing-cta { flex:0 0 auto; width:100%; display:flex; justify-content:center; padding:10px 16px calc(10px + env(safe-area-inset-bottom)); background:linear-gradient(180deg,#0b1117,#080d12); }
-    .landing-cta button { width:min(560px,100%); min-height:62px; padding:16px 22px; border:2px solid #e7d2a5; border-radius:16px; background:linear-gradient(180deg,#f0d79f 0%,#d2b477 100%); color:#111820; font-size:clamp(18px,3vw,25px); letter-spacing:.16em; box-shadow:0 6px 20px #0008; }
-    @media(min-width:700px) {
-      .landing-art img { max-height:calc(100svh - 100px); }
-      .landing-cta { padding-top:8px; }
+    body.landing-mode {
+      min-height:100svh;
+      height:100svh;
+      overflow:hidden;
+      background:#090b17;
     }
-
-
-    body.landing-mode { min-height:100svh; overflow:hidden; background:#070b10; }
     body.landing-mode .topline { display:none; }
-    body.landing-mode .wrap { width:100%; max-width:none; height:100svh; min-height:100svh; margin:0; padding:0; }
-    #landing { position:relative; width:100%; height:100svh; min-height:100svh; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#080d13; }
-    .landing-backdrop { position:absolute; inset:-24px; background-image:url('wis-landing-duck.png'); background-size:cover; background-position:center; filter:blur(18px) brightness(.43); transform:scale(1.06); }
-    .landing-poster { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
-    .landing-poster img { display:block; width:100%; height:100%; object-fit:contain; object-position:center; }
-    .landing-apply { position:absolute; z-index:3; left:50%; bottom:calc(22px + env(safe-area-inset-bottom)); transform:translateX(-50%); width:min(82%,560px); min-height:68px; padding:16px 22px; border:2px solid #e7c77e; border-radius:13px; background:linear-gradient(180deg,#b92319,#76130f); color:#ffe6a5; font-size:clamp(17px,3.5vw,25px); font-weight:950; letter-spacing:.08em; text-shadow:0 2px 2px #000; box-shadow:0 8px 28px #000a; }
-    .landing-apply:hover { filter:brightness(1.08); }
-
+    body.landing-mode .wrap {
+      width:100%;
+      max-width:none;
+      height:100svh;
+      min-height:100svh;
+      margin:0;
+      padding:0;
+    }
+    #landing {
+      position:relative;
+      width:100%;
+      height:100svh;
+      min-height:100svh;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      isolation:isolate;
+      background:#090b17;
+    }
+    .landing-backdrop {
+      position:absolute;
+      z-index:-1;
+      inset:-28px;
+      background-image:url('wis-landing-duck.png');
+      background-size:cover;
+      background-position:center;
+      filter:blur(20px) brightness(.48) saturate(.9);
+      transform:scale(1.08);
+    }
+    .landing-poster {
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .landing-poster img {
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center;
+    }
+    .landing-apply {
+      position:absolute;
+      z-index:5;
+      left:50%;
+      bottom:calc(22px + env(safe-area-inset-bottom));
+      transform:translateX(-50%);
+      width:min(82%,560px);
+      min-height:68px;
+      padding:16px 22px;
+      border:2px solid #e7c77e;
+      border-radius:14px;
+      background:linear-gradient(180deg,rgba(244,216,155,.98),rgba(184,132,57,.98));
+      color:#24162f;
+      font-size:clamp(17px,3.5vw,25px);
+      font-weight:900;
+      letter-spacing:.12em;
+      text-shadow:0 1px 0 rgba(255,255,255,.25);
+      box-shadow:0 8px 26px rgba(12,7,22,.55), inset 0 1px 0 rgba(255,255,255,.45);
+      cursor:pointer;
+    }
+    .landing-apply:active { transform:translateX(-50%) scale(.985); }
+    @media (min-width:700px) {
+      .landing-poster img { width:auto; max-width:100%; height:100%; }
+      .landing-apply { bottom:28px; }
+    }
     [hidden] { display:none !important; }
   </style>
 </head>
@@ -104,7 +157,9 @@
 
     <section id="landing" aria-label="WIS State 625 welcome">
       <div class="landing-backdrop" aria-hidden="true"></div>
-      <div class="landing-poster"><img src="wis-landing-duck.png" alt="State 625 crowned duck mascot and snowy fortress"></div>
+      <div class="landing-poster">
+        <img src="wis-landing-duck.png" alt="State 625 crowned duck mascot and snowy fortress">
+      </div>
       <button id="openApplication" class="landing-apply" type="button">APPLY NOW ›</button>
     </section>
     <header id="formHeader" style="display:none">
@@ -159,6 +214,25 @@
           <div class="field">
             <label for="currentAlliance" data-i18n="currentAlliance">Current alliance <span class="required">*</span></label>
             <input id="currentAlliance" name="Current alliance" required placeholder="Alliance tag / name" data-i18n-placeholder="phAlliance">
+          </div>
+          <div class="field">
+            <label for="allianceRole" data-i18n="currentAllianceRole">Current alliance role</label>
+            <select id="allianceRole" name="Current alliance role">
+              <option value="Member" data-i18n-option="member">Member</option>
+              <option value="R4">R4</option>
+              <option value="R5">R5</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="preferredContact" data-i18n="preferredContact">Preferred contact method <span class="required">*</span></label>
+            <select id="preferredContact" name="Preferred contact" required>
+              <option value="In-game" data-i18n-option="inGame">In-game</option>
+              <option value="Discord" data-i18n-option="discord">Discord</option>
+            </select>
+          </div>
+          <div class="field" id="discordUsernameField" hidden>
+            <label for="discordUsername" data-i18n="discordUsername">Discord username <span class="required">*</span></label>
+            <input id="discordUsername" name="Discord username" maxlength="80" placeholder="Enter your Discord username" data-i18n-placeholder="phDiscord">
           </div>
           <div class="field">
             <label for="preferredAlliance" data-i18n="preferredAlliance">Alliance You Want To Apply</label>
@@ -236,7 +310,7 @@
       </section>
 
       <section class="section">
-        <h2 class="section-title"><span class="num">04</span> <span data-i18n="proofSection">PROOF & CONFIRMATION</span></h2>
+        <h2 class="section-title"><span class="num">04</span> <span data-i18n="proofSection">SNIPS & CONFIRMATION</span></h2>
         <div class="grid">
           <div class="field full">
             <label for="screenshots" data-i18n="bag">BAG SCREENSHOT <span class="hint">(optional)</span></label>
@@ -260,21 +334,21 @@
   <script>
 
     const translations = {
-      en: {state:"STATE 625 • DARK WAR",application:"MIGRATION APPLICATION",intake:"RECRUITMENT INTAKE",intro:"Please complete the application accurately. Fields marked",intro2:"are required. Your details will be reviewed by WIS leadership. Submitting this form does not guarantee acceptance.",playerSection:"PLAYER INFORMATION",powerSection:"ACCOUNT & POWER",activitySection:"ACTIVITY & BACKGROUND",proofSection:"PROOF & CONFIRMATION",playerName:"In-game name *",playerId:"Player ID *",currentState:"Current state *",currentAlliance:"Current alliance *",preferredAlliance:"Alliance You Want To Apply",backupAlliance:"Backup preference",watchtower:"Watchtower level",overallPower:"Overall CP *",march1:"1st march power",march2:"2nd march power",march3:"3rd march power",march4:"4th march power",activity:"Usual activity / time zone",role:"Preferred play style",reason:"Why do you want to join 625 *",bag:"BAG SCREENSHOT (optional)",bagHint:"Upload a clear screenshot of your in-game bag. You can select more than one image.",confirm:"I confirm that the information provided is accurate and understand that WIS leadership may contact me for further details.",submit:"SUBMIT APPLICATION",footer:"WIS • STATE 625 • APPLICATION PORTAL"},
+      en: {currentAllianceRole:"Current alliance role",preferredContact:"Preferred contact method",discordUsername:"Discord username",phDiscord:"Enter your Discord username",member:"Member",inGame:"In-game",discord:"Discord",state:"STATE 625 • DARK WAR",application:"MIGRATION APPLICATION",intake:"RECRUITMENT INTAKE",intro:"Please complete the application accurately. Fields marked",intro2:"are required. Your details will be reviewed by WIS leadership. Submitting this form does not guarantee acceptance.",playerSection:"PLAYER INFORMATION",powerSection:"ACCOUNT & POWER",activitySection:"ACTIVITY & BACKGROUND",proofSection:"SNIPS & CONFIRMATION",playerName:"In-game name *",playerId:"Player ID *",currentState:"Current state *",currentAlliance:"Current alliance *",preferredAlliance:"Alliance You Want To Apply",backupAlliance:"Backup preference",watchtower:"Watchtower level",overallPower:"Overall CP *",march1:"1st march power",march2:"2nd march power",march3:"3rd march power",march4:"4th march power",activity:"Usual activity / time zone",role:"Preferred play style",reason:"Why do you want to join 625 *",bag:"BAG SCREENSHOT (optional)",bagHint:"Upload a clear screenshot of your in-game bag. You can select more than one image.",confirm:"I confirm that the information provided is accurate and understand that WIS leadership may contact me for further details.",submit:"SUBMIT APPLICATION",footer:"WIS • STATE 625 • APPLICATION PORTAL"},
       fil: {state:"STATE 625 • DARK WAR",application:"APLIKASYON SA MIGRATION",intake:"BUKAS ANG RECRUITMENT",intro:"Pakipunan nang tama ang application. Ang mga field na may",intro2:"ay kinakailangang sagutan. Susuriin ng WIS leadership ang iyong detalye. Hindi garantisado ang pagtanggap sa pagsusumite.",playerSection:"IMPORMASYON NG PLAYER",powerSection:"ACCOUNT AT POWER",activitySection:"AKTIBIDAD AT BACKGROUND",proofSection:"PATUNAY AT KUMPIRMASYON",playerName:"In-game name *",playerId:"Player ID *",currentState:"Kasalukuyang state *",currentAlliance:"Kasalukuyang alliance *",preferredAlliance:"Alliance na aaplayan",backupAlliance:"Pangalawang pagpipilian",watchtower:"Watchtower level",overallPower:"Kabuuang CP *",march1:"Power ng 1st march",march2:"Power ng 2nd march",march3:"Power ng 3rd march",march4:"Power ng 4th march",activity:"Karaniwang oras ng paglalaro / time zone",role:"Preferred na play style",reason:"Bakit mo gustong sumali sa 625? *",bag:"BAG SCREENSHOT (opsyonal)",bagHint:"Mag-upload ng malinaw na screenshot ng in-game bag. Maaari kang pumili ng higit sa isang larawan.",confirm:"Kinukumpirma kong tama ang impormasyong ibinigay ko at nauunawaan kong maaaring makipag-ugnayan ang WIS leadership para sa karagdagang detalye.",submit:"IPASA ANG APPLICATION",footer:"WIS • STATE 625 • APPLICATION PORTAL"},
-      vi: {state:"STATE 625 • DARK WAR",application:"ĐƠN ĐĂNG KÝ CHUYỂN STATE",intake:"ĐANG TUYỂN THÀNH VIÊN",intro:"Vui lòng điền đơn chính xác. Các mục có dấu",intro2:"là bắt buộc. Ban lãnh đạo WIS sẽ xem xét thông tin của bạn. Gửi đơn không đồng nghĩa với việc được chấp nhận.",playerSection:"THÔNG TIN NGƯỜI CHƠI",powerSection:"TÀI KHOẢN & SỨC MẠNH",activitySection:"HOẠT ĐỘNG & THÔNG TIN",proofSection:"BẰNG CHỨNG & XÁC NHẬN",playerName:"Tên trong game *",playerId:"ID người chơi *",currentState:"State hiện tại *",currentAlliance:"Liên minh hiện tại *",preferredAlliance:"Liên minh bạn muốn đăng ký",backupAlliance:"Lựa chọn dự phòng",watchtower:"Cấp Tháp Canh",overallPower:"Tổng CP *",march1:"Sức mạnh đội hình 1",march2:"Sức mạnh đội hình 2",march3:"Sức mạnh đội hình 3",march4:"Sức mạnh đội hình 4",activity:"Thời gian hoạt động / múi giờ",role:"Phong cách chơi mong muốn",reason:"Tại sao bạn muốn gia nhập 625? *",bag:"ẢNH TÚI ĐỒ (BAG SCREENSHOT)",bagHint:"Tải lên ảnh chụp túi đồ trong game rõ nét. Bạn có thể chọn nhiều ảnh.",confirm:"Tôi xác nhận thông tin đã cung cấp là chính xác và hiểu rằng ban lãnh đạo WIS có thể liên hệ để hỏi thêm.",submit:"GỬI ĐƠN ĐĂNG KÝ",footer:"WIS • STATE 625 • CỔNG ĐĂNG KÝ"},
-      ko: {state:"STATE 625 • DARK WAR",application:"이주 신청서",intake:"모집 진행 중",intro:"신청서를 정확하게 작성해 주세요. 다음 표시가 있는 항목은",intro2:"필수입니다. WIS 운영진이 내용을 검토하며, 신청서 제출이 가입을 보장하지는 않습니다.",playerSection:"플레이어 정보",powerSection:"계정 및 전투력",activitySection:"활동 및 배경",proofSection:"증빙 및 확인",playerName:"게임 닉네임 *",playerId:"플레이어 ID *",currentState:"현재 주 *",currentAlliance:"현재 연맹 *",preferredAlliance:"지원할 연맹",backupAlliance:"차선 선택",watchtower:"감시탑 레벨",overallPower:"전체 CP *",march1:"1부대 전투력",march2:"2부대 전투력",march3:"3부대 전투력",march4:"4부대 전투력",activity:"주 활동 시간 / 시간대",role:"선호하는 플레이 스타일",reason:"625에 가입하고 싶은 이유는 무엇인가요? *",bag:"가방 스크린샷 (선택)",bagHint:"게임 내 가방 화면을 선명하게 캡처해 업로드하세요. 여러 장을 선택할 수 있습니다.",confirm:"제출한 정보가 정확함을 확인하며, 추가 확인을 위해 WIS 운영진이 연락할 수 있음을 이해합니다.",submit:"신청서 제출",footer:"WIS • STATE 625 • 신청 포털"},
-      ja: {state:"STATE 625 • DARK WAR",application:"移民申請フォーム",intake:"メンバー募集中",intro:"申請内容を正確に入力してください。",intro2:"が付いた項目は必須です。WIS幹部が内容を確認します。送信しても加入が確約されるわけではありません。",playerSection:"プレイヤー情報",powerSection:"アカウントと戦力",activitySection:"活動状況・プロフィール",proofSection:"証明・確認",playerName:"ゲーム内の名前 *",playerId:"プレイヤーID *",currentState:"現在のステート *",currentAlliance:"現在の同盟 *",preferredAlliance:"応募したい同盟",backupAlliance:"第2希望",watchtower:"監視塔レベル",overallPower:"総CP *",march1:"第1部隊の戦力",march2:"第2部隊の戦力",march3:"第3部隊の戦力",march4:"第4部隊の戦力",activity:"通常の活動時間 / タイムゾーン",role:"希望するプレイスタイル",reason:"625に加入したい理由を教えてください *",bag:"バッグのスクリーンショット（任意）",bagHint:"ゲーム内バッグの鮮明なスクリーンショットをアップロードしてください。複数選択できます。",confirm:"入力した情報が正確であることを確認し、追加確認のためWIS幹部から連絡が来る場合があることに同意します。",submit:"申請を送信",footer:"WIS • STATE 625 • 申請ポータル"},
-      zh: {state:"STATE 625 • DARK WAR",application:"迁服申请表",intake:"正在招募",intro:"请准确填写申请表。带有",intro2:"的项目为必填项。WIS 管理团队将审核你的资料。提交申请不代表一定会获批。",playerSection:"玩家信息",powerSection:"账号与战力",activitySection:"活跃情况与背景",proofSection:"证明与确认",playerName:"游戏昵称 *",playerId:"玩家 ID *",currentState:"当前州 *",currentAlliance:"当前联盟 *",preferredAlliance:"想申请加入的联盟",backupAlliance:"备选联盟",watchtower:"瞭望塔等级",overallPower:"总 CP *",march1:"第一队战力",march2:"第二队战力",march3:"第三队战力",march4:"第四队战力",activity:"通常活跃时间 / 时区",role:"偏好的游戏风格",reason:"你为什么想加入 625？ *",bag:"背包截图（可选）",bagHint:"请上传清晰的游戏背包截图。可以选择多张图片。",confirm:"我确认所提供的信息准确无误，并理解 WIS 管理团队可能会联系我了解更多详情。",submit:"提交申请",footer:"WIS • STATE 625 • 申请入口"},
-      th: {state:"STATE 625 • DARK WAR",application:"แบบฟอร์มสมัครย้ายรัฐ",intake:"กำลังเปิดรับสมาชิก",intro:"กรุณากรอกใบสมัครให้ถูกต้อง ช่องที่มีเครื่องหมาย",intro2:"เป็นช่องบังคับ กำลังของ WIS จะตรวจสอบข้อมูลของคุณ การส่งใบสมัครไม่ได้รับประกันว่าจะได้รับการยอมรับ",playerSection:"ข้อมูลผู้เล่น",powerSection:"บัญชีและพลัง",activitySection:"กิจกรรมและประวัติ",proofSection:"หลักฐานและการยืนยัน",playerName:"ชื่อในเกม *",playerId:"ID ผู้เล่น *",currentState:"รัฐปัจจุบัน *",currentAlliance:"พันธมิตรปัจจุบัน *",preferredAlliance:"พันธมิตรที่ต้องการสมัคร",backupAlliance:"ตัวเลือกสำรอง",watchtower:"ระดับหอสังเกตการณ์",overallPower:"CP รวม *",march1:"พลังทัพที่ 1",march2:"พลังทัพที่ 2",march3:"พลังทัพที่ 3",march4:"พลังทัพที่ 4",activity:"ช่วงเวลาที่เล่น / เขตเวลา",role:"รูปแบบการเล่นที่ต้องการ",reason:"ทำไมคุณจึงต้องการเข้าร่วม 625? *",bag:"ภาพหน้าจอกระเป๋า (BAG SCREENSHOT)",bagHint:"อัปโหลดภาพหน้าจอกระเป๋าในเกมที่ชัดเจน สามารถเลือกได้หลายภาพ",confirm:"ฉันยืนยันว่าข้อมูลที่ให้ไว้ถูกต้อง และเข้าใจว่าผู้นำ WIS อาจติดต่อเพื่อขอรายละเอียดเพิ่มเติม",submit:"ส่งใบสมัคร",footer:"WIS • STATE 625 • พอร์ทัลใบสมัคร"}
+      vi: {currentAllianceRole:"Vai trò trong liên minh hiện tại",preferredContact:"Phương thức liên hệ ưu tiên",discordUsername:"Tên người dùng Discord",phDiscord:"Nhập tên người dùng Discord",member:"Thành viên",inGame:"Trong game",discord:"Discord",state:"STATE 625 • DARK WAR",application:"ĐƠN ĐĂNG KÝ CHUYỂN STATE",intake:"ĐANG TUYỂN THÀNH VIÊN",intro:"Vui lòng điền đơn chính xác. Các mục có dấu",intro2:"là bắt buộc. Ban lãnh đạo WIS sẽ xem xét thông tin của bạn. Gửi đơn không đồng nghĩa với việc được chấp nhận.",playerSection:"THÔNG TIN NGƯỜI CHƠI",powerSection:"TÀI KHOẢN & SỨC MẠNH",activitySection:"HOẠT ĐỘNG & THÔNG TIN",proofSection:"BẰNG CHỨNG & XÁC NHẬN",playerName:"Tên trong game *",playerId:"ID người chơi *",currentState:"State hiện tại *",currentAlliance:"Liên minh hiện tại *",preferredAlliance:"Liên minh bạn muốn đăng ký",backupAlliance:"Lựa chọn dự phòng",watchtower:"Cấp Tháp Canh",overallPower:"Tổng CP *",march1:"Sức mạnh đội hình 1",march2:"Sức mạnh đội hình 2",march3:"Sức mạnh đội hình 3",march4:"Sức mạnh đội hình 4",activity:"Thời gian hoạt động / múi giờ",role:"Phong cách chơi mong muốn",reason:"Tại sao bạn muốn gia nhập 625? *",bag:"ẢNH TÚI ĐỒ (BAG SCREENSHOT)",bagHint:"Tải lên ảnh chụp túi đồ trong game rõ nét. Bạn có thể chọn nhiều ảnh.",confirm:"Tôi xác nhận thông tin đã cung cấp là chính xác và hiểu rằng ban lãnh đạo WIS có thể liên hệ để hỏi thêm.",submit:"GỬI ĐƠN ĐĂNG KÝ",footer:"WIS • STATE 625 • CỔNG ĐĂNG KÝ"},
+      ko: {currentAllianceRole:"현재 연맹 직책",preferredContact:"선호 연락 방법",discordUsername:"디스코드 사용자 이름",phDiscord:"디스코드 사용자 이름을 입력하세요",member:"멤버",inGame:"게임 내",discord:"디스코드",state:"STATE 625 • DARK WAR",application:"이주 신청서",intake:"모집 진행 중",intro:"신청서를 정확하게 작성해 주세요. 다음 표시가 있는 항목은",intro2:"필수입니다. WIS 운영진이 내용을 검토하며, 신청서 제출이 가입을 보장하지는 않습니다.",playerSection:"플레이어 정보",powerSection:"계정 및 전투력",activitySection:"활동 및 배경",proofSection:"스크린샷 및 확인",playerName:"게임 닉네임 *",playerId:"플레이어 ID *",currentState:"현재 주 *",currentAlliance:"현재 연맹 *",preferredAlliance:"지원할 연맹",backupAlliance:"차선 선택",watchtower:"감시탑 레벨",overallPower:"전체 CP *",march1:"1부대 전투력",march2:"2부대 전투력",march3:"3부대 전투력",march4:"4부대 전투력",activity:"주 활동 시간 / 시간대",role:"선호하는 플레이 스타일",reason:"625에 가입하고 싶은 이유는 무엇인가요? *",bag:"가방 스크린샷 (선택)",bagHint:"게임 내 가방 화면을 선명하게 캡처해 업로드하세요. 여러 장을 선택할 수 있습니다.",confirm:"제출한 정보가 정확함을 확인하며, 추가 확인을 위해 WIS 운영진이 연락할 수 있음을 이해합니다.",submit:"신청서 제출",footer:"WIS • STATE 625 • 신청 포털"},
+      ja: {currentAllianceRole:"現在の同盟での役職",preferredContact:"希望する連絡方法",discordUsername:"Discordユーザー名",phDiscord:"Discordユーザー名を入力",member:"メンバー",inGame:"ゲーム内",discord:"Discord",state:"STATE 625 • DARK WAR",application:"移民申請フォーム",intake:"メンバー募集中",intro:"申請内容を正確に入力してください。",intro2:"が付いた項目は必須です。WIS幹部が内容を確認します。送信しても加入が確約されるわけではありません。",playerSection:"プレイヤー情報",powerSection:"アカウントと戦力",activitySection:"活動状況・プロフィール",proofSection:"証明・確認",playerName:"ゲーム内の名前 *",playerId:"プレイヤーID *",currentState:"現在のステート *",currentAlliance:"現在の同盟 *",preferredAlliance:"応募したい同盟",backupAlliance:"第2希望",watchtower:"監視塔レベル",overallPower:"総CP *",march1:"第1部隊の戦力",march2:"第2部隊の戦力",march3:"第3部隊の戦力",march4:"第4部隊の戦力",activity:"通常の活動時間 / タイムゾーン",role:"希望するプレイスタイル",reason:"625に加入したい理由を教えてください *",bag:"バッグのスクリーンショット（任意）",bagHint:"ゲーム内バッグの鮮明なスクリーンショットをアップロードしてください。複数選択できます。",confirm:"入力した情報が正確であることを確認し、追加確認のためWIS幹部から連絡が来る場合があることに同意します。",submit:"申請を送信",footer:"WIS • STATE 625 • 申請ポータル"},
+      zh: {currentAllianceRole:"当前联盟职位",preferredContact:"首选联系方式",discordUsername:"Discord 用户名",phDiscord:"请输入 Discord 用户名",member:"成员",inGame:"游戏内",discord:"Discord",state:"STATE 625 • DARK WAR",application:"迁服申请表",intake:"正在招募",intro:"请准确填写申请表。带有",intro2:"的项目为必填项。WIS 管理团队将审核你的资料。提交申请不代表一定会获批。",playerSection:"玩家信息",powerSection:"账号与战力",activitySection:"活跃情况与背景",proofSection:"截图与确认",playerName:"游戏昵称 *",playerId:"玩家 ID *",currentState:"当前州 *",currentAlliance:"当前联盟 *",preferredAlliance:"想申请加入的联盟",backupAlliance:"备选联盟",watchtower:"瞭望塔等级",overallPower:"总 CP *",march1:"第一队战力",march2:"第二队战力",march3:"第三队战力",march4:"第四队战力",activity:"通常活跃时间 / 时区",role:"偏好的游戏风格",reason:"你为什么想加入 625？ *",bag:"背包截图（可选）",bagHint:"请上传清晰的游戏背包截图。可以选择多张图片。",confirm:"我确认所提供的信息准确无误，并理解 WIS 管理团队可能会联系我了解更多详情。",submit:"提交申请",footer:"WIS • STATE 625 • 申请入口"},
+      th: {currentAllianceRole:"ตำแหน่งในพันธมิตรปัจจุบัน",preferredContact:"ช่องทางติดต่อที่ต้องการ",discordUsername:"ชื่อผู้ใช้ Discord",phDiscord:"กรอกชื่อผู้ใช้ Discord",member:"สมาชิก",inGame:"ในเกม",discord:"Discord",state:"STATE 625 • DARK WAR",application:"แบบฟอร์มสมัครย้ายรัฐ",intake:"กำลังเปิดรับสมาชิก",intro:"กรุณากรอกใบสมัครให้ถูกต้อง ช่องที่มีเครื่องหมาย",intro2:"เป็นช่องบังคับ กำลังของ WIS จะตรวจสอบข้อมูลของคุณ การส่งใบสมัครไม่ได้รับประกันว่าจะได้รับการยอมรับ",playerSection:"ข้อมูลผู้เล่น",powerSection:"บัญชีและพลัง",activitySection:"กิจกรรมและประวัติ",proofSection:"หลักฐานและการยืนยัน",playerName:"ชื่อในเกม *",playerId:"ID ผู้เล่น *",currentState:"รัฐปัจจุบัน *",currentAlliance:"พันธมิตรปัจจุบัน *",preferredAlliance:"พันธมิตรที่ต้องการสมัคร",backupAlliance:"ตัวเลือกสำรอง",watchtower:"ระดับหอสังเกตการณ์",overallPower:"CP รวม *",march1:"พลังทัพที่ 1",march2:"พลังทัพที่ 2",march3:"พลังทัพที่ 3",march4:"พลังทัพที่ 4",activity:"ช่วงเวลาที่เล่น / เขตเวลา",role:"รูปแบบการเล่นที่ต้องการ",reason:"ทำไมคุณจึงต้องการเข้าร่วม 625? *",bag:"ภาพหน้าจอกระเป๋า (BAG SCREENSHOT)",bagHint:"อัปโหลดภาพหน้าจอกระเป๋าในเกมที่ชัดเจน สามารถเลือกได้หลายภาพ",confirm:"ฉันยืนยันว่าข้อมูลที่ให้ไว้ถูกต้อง และเข้าใจว่าผู้นำ WIS อาจติดต่อเพื่อขอรายละเอียดเพิ่มเติม",submit:"ส่งใบสมัคร",footer:"WIS • STATE 625 • พอร์ทัลใบสมัคร"}
 
       ,
-      es: {state:"ESTADO 625 • DARK WAR",application:"SOLICITUD DE MIGRACIÓN",intake:"RECLUTAMIENTO ABIERTO",intro:"Completa la solicitud con precisión. Los campos marcados",intro2:"son obligatorios. El liderazgo de WIS revisará tus datos. Enviar el formulario no garantiza la aceptación.",playerSection:"INFORMACIÓN DEL JUGADOR",powerSection:"CUENTA Y PODER",activitySection:"ACTIVIDAD Y ANTECEDENTES",proofSection:"PRUEBAS Y CONFIRMACIÓN",playerName:"Nombre en el juego *",playerId:"ID del jugador *",currentState:"Estado actual *",currentAlliance:"Alianza actual *",preferredAlliance:"Alianza a la que deseas postularte",backupAlliance:"Opción alternativa",watchtower:"Nivel de torre de vigilancia",overallPower:"CP total *",march1:"Poder de marcha 1",march2:"Poder de marcha 2",march3:"Poder de marcha 3",march4:"Poder de marcha 4",activity:"Actividad habitual / zona horaria",role:"Estilo de juego preferido",reason:"¿Por qué quieres unirte a 625? *",bag:"CAPTURA DE MOCHILA (opcional)",bagHint:"Sube una captura clara de tu mochila del juego. Puedes seleccionar varias imágenes.",confirm:"Confirmo que la información es correcta y entiendo que el liderazgo de WIS puede contactarme para solicitar más detalles.",submit:"ENVIAR SOLICITUD",footer:"WIS • ESTADO 625 • PORTAL DE SOLICITUD",languageLabel:"IDIOMA",phPlayerName:"Tu nombre de jugador",phPlayerId:"Tu ID del juego",phState:"p. ej., 620",phAlliance:"Etiqueta o nombre de alianza",phOptional:"Opcional",phLevel:"p. ej., 30",phPower:"p. ej., 250M",phMarch:"p. ej., 25M",phActivity:"p. ej., Diario, UTC+8",phReason:"Cuéntanos por qué quieres unirte a 625"},
-      pt: {state:"ESTADO 625 • DARK WAR",application:"CANDIDATURA DE MIGRAÇÃO",intake:"RECRUTAMENTO ABERTO",intro:"Preencha a candidatura corretamente. Os campos marcados",intro2:"são obrigatórios. A liderança da WIS analisará os seus dados. O envio não garante aceitação.",playerSection:"INFORMAÇÕES DO JOGADOR",powerSection:"CONTA E PODER",activitySection:"ATIVIDADE E HISTÓRICO",proofSection:"COMPROVAÇÃO E CONFIRMAÇÃO",playerName:"Nome no jogo *",playerId:"ID do jogador *",currentState:"Estado atual *",currentAlliance:"Aliança atual *",preferredAlliance:"Aliança à qual deseja candidatar-se",backupAlliance:"Opção alternativa",watchtower:"Nível da torre de vigia",overallPower:"CP total *",march1:"Poder da marcha 1",march2:"Poder da marcha 2",march3:"Poder da marcha 3",march4:"Poder da marcha 4",activity:"Atividade habitual / fuso horário",role:"Estilo de jogo preferido",reason:"Por que deseja entrar em 625? *",bag:"CAPTURA DA MOCHILA (opcional)",bagHint:"Envie uma captura nítida da mochila do jogo. Pode selecionar várias imagens.",confirm:"Confirmo que as informações são corretas e compreendo que a liderança da WIS poderá entrar em contato para pedir mais detalhes.",submit:"ENVIAR CANDIDATURA",footer:"WIS • ESTADO 625 • PORTAL DE CANDIDATURA",languageLabel:"IDIOMA",phPlayerName:"Seu nome no jogo",phPlayerId:"Seu ID no jogo",phState:"ex.: 620",phAlliance:"Tag ou nome da aliança",phOptional:"Opcional",phLevel:"ex.: 30",phPower:"ex.: 250M",phMarch:"ex.: 25M",phActivity:"ex.: Diário, UTC+8",phReason:"Conte por que deseja entrar em 625"},
-      de: {state:"STAAT 625 • DARK WAR",application:"MIGRATIONSANTRAG",intake:"REKRUTIERUNG GEÖFFNET",intro:"Bitte fülle den Antrag sorgfältig aus. Die markierten Felder",intro2:"sind Pflichtfelder. Die WIS-Führung prüft deine Angaben. Das Absenden garantiert keine Aufnahme.",playerSection:"SPIELERINFORMATIONEN",powerSection:"KONTO & KAMPFKRAFT",activitySection:"AKTIVITÄT & HINTERGRUND",proofSection:"NACHWEIS & BESTÄTIGUNG",playerName:"Name im Spiel *",playerId:"Spieler-ID *",currentState:"Aktueller Staat *",currentAlliance:"Aktuelle Allianz *",preferredAlliance:"Allianz, bei der du dich bewerben möchtest",backupAlliance:"Zweite Wahl",watchtower:"Wachturm-Stufe",overallPower:"Gesamt-CP *",march1:"Kampfkraft Marsch 1",march2:"Kampfkraft Marsch 2",march3:"Kampfkraft Marsch 3",march4:"Kampfkraft Marsch 4",activity:"Übliche Aktivität / Zeitzone",role:"Bevorzugter Spielstil",reason:"Warum möchtest du 625 beitreten? *",bag:"RUCKSACK-SCREENSHOT (optional)",bagHint:"Lade einen gut lesbaren Screenshot deines Spielrucksacks hoch. Mehrere Bilder sind möglich.",confirm:"Ich bestätige die Richtigkeit meiner Angaben und weiß, dass die WIS-Führung mich für weitere Fragen kontaktieren kann.",submit:"ANTRAG SENDEN",footer:"WIS • STAAT 625 • BEWERBUNGSPORTAL",languageLabel:"SPRACHE",phPlayerName:"Dein Spielername",phPlayerId:"Deine Spiel-ID",phState:"z. B. 620",phAlliance:"Allianz-Tag / Name",phOptional:"Optional",phLevel:"z. B. 30",phPower:"z. B. 250M",phMarch:"z. B. 25M",phActivity:"z. B. täglich, UTC+8",phReason:"Warum möchtest du 625 beitreten?"},
-      tr: {state:"625. EYALET • DARK WAR",application:"GÖÇ BAŞVURUSU",intake:"ÜYE ALIMI AÇIK",intro:"Lütfen başvuruyu doğru şekilde doldurun. İşaretli alanlar",intro2:"zorunludur. Bilgileriniz WIS liderliği tarafından incelenecektir. Başvuru göndermek kabul garantisi vermez.",playerSection:"OYUNCU BİLGİLERİ",powerSection:"HESAP VE GÜÇ",activitySection:"AKTİVİTE VE GEÇMİŞ",proofSection:"KANIT VE ONAY",playerName:"Oyun içi ad *",playerId:"Oyuncu ID *",currentState:"Mevcut eyalet *",currentAlliance:"Mevcut ittifak *",preferredAlliance:"Başvurmak istediğiniz ittifak",backupAlliance:"Yedek tercih",watchtower:"Gözetleme kulesi seviyesi",overallPower:"Toplam CP *",march1:"1. yürüyüş gücü",march2:"2. yürüyüş gücü",march3:"3. yürüyüş gücü",march4:"4. yürüyüş gücü",activity:"Genel aktiflik / saat dilimi",role:"Tercih edilen oyun tarzı",reason:"Neden 625'e katılmak istiyorsunuz? *",bag:"ÇANTA EKRAN GÖRÜNTÜSÜ (isteğe bağlı)",bagHint:"Oyun içi çantanızın net bir ekran görüntüsünü yükleyin. Birden fazla görsel seçebilirsiniz.",confirm:"Verdiğim bilgilerin doğru olduğunu onaylıyorum ve WIS liderliğinin ek bilgi için benimle iletişime geçebileceğini anlıyorum.",submit:"BAŞVURUYU GÖNDER",footer:"WIS • 625. EYALET • BAŞVURU PORTALI",languageLabel:"DİL",phPlayerName:"Oyuncu adınız",phPlayerId:"Oyun içi ID'niz",phState:"örn. 620",phAlliance:"İttifak etiketi / adı",phOptional:"İsteğe bağlı",phLevel:"örn. 30",phPower:"örn. 250M",phMarch:"örn. 25M",phActivity:"örn. Her gün, UTC+8",phReason:"Neden 625'e katılmak istediğinizi yazın"},
-      ar: {state:"الولاية 625 • DARK WAR",application:"طلب انتقال",intake:"التجنيد مفتوح",intro:"يرجى تعبئة الطلب بدقة. الحقول المحددة",intro2:"مطلوبة. ستراجع قيادة WIS بياناتك. إرسال الطلب لا يضمن القبول.",playerSection:"معلومات اللاعب",powerSection:"الحساب والقوة",activitySection:"النشاط والخلفية",proofSection:"الإثبات والتأكيد",playerName:"اسم اللاعب داخل اللعبة *",playerId:"معرّف اللاعب *",currentState:"الولاية الحالية *",currentAlliance:"التحالف الحالي *",preferredAlliance:"التحالف الذي ترغب في التقديم إليه",backupAlliance:"الخيار الاحتياطي",watchtower:"مستوى برج المراقبة",overallPower:"القوة الإجمالية CP *",march1:"قوة المسيرة الأولى",march2:"قوة المسيرة الثانية",march3:"قوة المسيرة الثالثة",march4:"قوة المسيرة الرابعة",activity:"وقت النشاط المعتاد / المنطقة الزمنية",role:"أسلوب اللعب المفضل",reason:"لماذا تريد الانضمام إلى 625؟ *",bag:"لقطة شاشة للحقيبة (اختياري)",bagHint:"ارفع لقطة واضحة لحقيبتك داخل اللعبة. يمكنك اختيار أكثر من صورة.",confirm:"أؤكد أن المعلومات المقدمة صحيحة، وأفهم أن قيادة WIS قد تتواصل معي لطلب تفاصيل إضافية.",submit:"إرسال الطلب",footer:"WIS • الولاية 625 • بوابة التقديم",languageLabel:"اللغة",phPlayerName:"اسم اللاعب",phPlayerId:"معرّفك داخل اللعبة",phState:"مثال: 620",phAlliance:"رمز التحالف / اسمه",phOptional:"اختياري",phLevel:"مثال: 30",phPower:"مثال: 250M",phMarch:"مثال: 25M",phActivity:"مثال: يوميًا، UTC+8",phReason:"أخبرنا لماذا تريد الانضمام إلى 625"},
-      id: {state:"NEGARA 625 • DARK WAR",application:"FORMULIR MIGRASI",intake:"PENDAFTARAN DIBUKA",intro:"Isi formulir dengan benar. Kolom yang ditandai",intro2:"wajib diisi. Data Anda akan ditinjau oleh pimpinan WIS. Mengirim formulir tidak menjamin penerimaan.",playerSection:"INFORMASI PEMAIN",powerSection:"AKUN & KEKUATAN",activitySection:"AKTIVITAS & LATAR BELAKANG",proofSection:"BUKTI & KONFIRMASI",playerName:"Nama dalam game *",playerId:"ID pemain *",currentState:"Negara saat ini *",currentAlliance:"Aliansi saat ini *",preferredAlliance:"Aliansi yang ingin Anda lamar",backupAlliance:"Pilihan cadangan",watchtower:"Level menara pengawas",overallPower:"Total CP *",march1:"Kekuatan march 1",march2:"Kekuatan march 2",march3:"Kekuatan march 3",march4:"Kekuatan march 4",activity:"Waktu aktif / zona waktu",role:"Gaya bermain pilihan",reason:"Mengapa ingin bergabung dengan 625? *",bag:"TANGKAPAN LAYAR TAS (opsional)",bagHint:"Unggah tangkapan layar tas dalam game yang jelas. Anda dapat memilih beberapa gambar.",confirm:"Saya mengonfirmasi bahwa informasi yang diberikan benar dan memahami bahwa pimpinan WIS dapat menghubungi saya untuk detail tambahan.",submit:"KIRIM APLIKASI",footer:"WIS • NEGARA 625 • PORTAL APLIKASI",languageLabel:"BAHASA",phPlayerName:"Nama pemain Anda",phPlayerId:"ID dalam game Anda",phState:"mis. 620",phAlliance:"Tag / nama aliansi",phOptional:"Opsional",phLevel:"mis. 30",phPower:"mis. 250M",phMarch:"mis. 25M",phActivity:"mis. Setiap hari, UTC+8",phReason:"Ceritakan alasan ingin bergabung dengan 625"}
+      es: {currentAllianceRole:"Cargo en la alianza actual",preferredContact:"Método de contacto preferido",discordUsername:"Usuario de Discord",phDiscord:"Introduce tu usuario de Discord",member:"Miembro",inGame:"En el juego",discord:"Discord",state:"ESTADO 625 • DARK WAR",application:"SOLICITUD DE MIGRACIÓN",intake:"RECLUTAMIENTO ABIERTO",intro:"Completa la solicitud con precisión. Los campos marcados",intro2:"son obligatorios. El liderazgo de WIS revisará tus datos. Enviar el formulario no garantiza la aceptación.",playerSection:"INFORMACIÓN DEL JUGADOR",powerSection:"CUENTA Y PODER",activitySection:"ACTIVIDAD Y ANTECEDENTES",proofSection:"CAPTURAS Y CONFIRMACIÓN",playerName:"Nombre en el juego *",playerId:"ID del jugador *",currentState:"Estado actual *",currentAlliance:"Alianza actual *",preferredAlliance:"Alianza a la que deseas postularte",backupAlliance:"Opción alternativa",watchtower:"Nivel de torre de vigilancia",overallPower:"CP total *",march1:"Poder de marcha 1",march2:"Poder de marcha 2",march3:"Poder de marcha 3",march4:"Poder de marcha 4",activity:"Actividad habitual / zona horaria",role:"Estilo de juego preferido",reason:"¿Por qué quieres unirte a 625? *",bag:"CAPTURA DE MOCHILA (opcional)",bagHint:"Sube una captura clara de tu mochila del juego. Puedes seleccionar varias imágenes.",confirm:"Confirmo que la información es correcta y entiendo que el liderazgo de WIS puede contactarme para solicitar más detalles.",submit:"ENVIAR SOLICITUD",footer:"WIS • ESTADO 625 • PORTAL DE SOLICITUD",languageLabel:"IDIOMA",phPlayerName:"Tu nombre de jugador",phPlayerId:"Tu ID del juego",phState:"p. ej., 620",phAlliance:"Etiqueta o nombre de alianza",phOptional:"Opcional",phLevel:"p. ej., 30",phPower:"p. ej., 250M",phMarch:"p. ej., 25M",phActivity:"p. ej., Diario, UTC+8",phReason:"Cuéntanos por qué quieres unirte a 625"},
+      pt: {currentAllianceRole:"Cargo na aliança atual",preferredContact:"Método de contato preferido",discordUsername:"Nome de usuário do Discord",phDiscord:"Digite seu nome de usuário do Discord",member:"Membro",inGame:"No jogo",discord:"Discord",state:"ESTADO 625 • DARK WAR",application:"CANDIDATURA DE MIGRAÇÃO",intake:"RECRUTAMENTO ABERTO",intro:"Preencha a candidatura corretamente. Os campos marcados",intro2:"são obrigatórios. A liderança da WIS analisará os seus dados. O envio não garante aceitação.",playerSection:"INFORMAÇÕES DO JOGADOR",powerSection:"CONTA E PODER",activitySection:"ATIVIDADE E HISTÓRICO",proofSection:"CAPTURAS DE ECRÃ E CONFIRMAÇÃO",playerName:"Nome no jogo *",playerId:"ID do jogador *",currentState:"Estado atual *",currentAlliance:"Aliança atual *",preferredAlliance:"Aliança à qual deseja candidatar-se",backupAlliance:"Opção alternativa",watchtower:"Nível da torre de vigia",overallPower:"CP total *",march1:"Poder da marcha 1",march2:"Poder da marcha 2",march3:"Poder da marcha 3",march4:"Poder da marcha 4",activity:"Atividade habitual / fuso horário",role:"Estilo de jogo preferido",reason:"Por que deseja entrar em 625? *",bag:"CAPTURA DA MOCHILA (opcional)",bagHint:"Envie uma captura nítida da mochila do jogo. Pode selecionar várias imagens.",confirm:"Confirmo que as informações são corretas e compreendo que a liderança da WIS poderá entrar em contato para pedir mais detalhes.",submit:"ENVIAR CANDIDATURA",footer:"WIS • ESTADO 625 • PORTAL DE CANDIDATURA",languageLabel:"IDIOMA",phPlayerName:"Seu nome no jogo",phPlayerId:"Seu ID no jogo",phState:"ex.: 620",phAlliance:"Tag ou nome da aliança",phOptional:"Opcional",phLevel:"ex.: 30",phPower:"ex.: 250M",phMarch:"ex.: 25M",phActivity:"ex.: Diário, UTC+8",phReason:"Conte por que deseja entrar em 625"},
+      de: {currentAllianceRole:"Rolle in der aktuellen Allianz",preferredContact:"Bevorzugte Kontaktmethode",discordUsername:"Discord-Benutzername",phDiscord:"Gib deinen Discord-Benutzernamen ein",member:"Mitglied",inGame:"Im Spiel",discord:"Discord",state:"STAAT 625 • DARK WAR",application:"MIGRATIONSANTRAG",intake:"REKRUTIERUNG GEÖFFNET",intro:"Bitte fülle den Antrag sorgfältig aus. Die markierten Felder",intro2:"sind Pflichtfelder. Die WIS-Führung prüft deine Angaben. Das Absenden garantiert keine Aufnahme.",playerSection:"SPIELERINFORMATIONEN",powerSection:"KONTO & KAMPFKRAFT",activitySection:"AKTIVITÄT & HINTERGRUND",proofSection:"SCREENSHOTS & BESTÄTIGUNG",playerName:"Name im Spiel *",playerId:"Spieler-ID *",currentState:"Aktueller Staat *",currentAlliance:"Aktuelle Allianz *",preferredAlliance:"Allianz, bei der du dich bewerben möchtest",backupAlliance:"Zweite Wahl",watchtower:"Wachturm-Stufe",overallPower:"Gesamt-CP *",march1:"Kampfkraft Marsch 1",march2:"Kampfkraft Marsch 2",march3:"Kampfkraft Marsch 3",march4:"Kampfkraft Marsch 4",activity:"Übliche Aktivität / Zeitzone",role:"Bevorzugter Spielstil",reason:"Warum möchtest du 625 beitreten? *",bag:"RUCKSACK-SCREENSHOT (optional)",bagHint:"Lade einen gut lesbaren Screenshot deines Spielrucksacks hoch. Mehrere Bilder sind möglich.",confirm:"Ich bestätige die Richtigkeit meiner Angaben und weiß, dass die WIS-Führung mich für weitere Fragen kontaktieren kann.",submit:"ANTRAG SENDEN",footer:"WIS • STAAT 625 • BEWERBUNGSPORTAL",languageLabel:"SPRACHE",phPlayerName:"Dein Spielername",phPlayerId:"Deine Spiel-ID",phState:"z. B. 620",phAlliance:"Allianz-Tag / Name",phOptional:"Optional",phLevel:"z. B. 30",phPower:"z. B. 250M",phMarch:"z. B. 25M",phActivity:"z. B. täglich, UTC+8",phReason:"Warum möchtest du 625 beitreten?"},
+      tr: {currentAllianceRole:"Mevcut ittifaktaki rol",preferredContact:"Tercih edilen iletişim yöntemi",discordUsername:"Discord kullanıcı adı",phDiscord:"Discord kullanıcı adınızı girin",member:"Üye",inGame:"Oyun içi",discord:"Discord",state:"625. EYALET • DARK WAR",application:"GÖÇ BAŞVURUSU",intake:"ÜYE ALIMI AÇIK",intro:"Lütfen başvuruyu doğru şekilde doldurun. İşaretli alanlar",intro2:"zorunludur. Bilgileriniz WIS liderliği tarafından incelenecektir. Başvuru göndermek kabul garantisi vermez.",playerSection:"OYUNCU BİLGİLERİ",powerSection:"HESAP VE GÜÇ",activitySection:"AKTİVİTE VE GEÇMİŞ",proofSection:"EKRAN GÖRÜNTÜLERİ VE ONAY",playerName:"Oyun içi ad *",playerId:"Oyuncu ID *",currentState:"Mevcut eyalet *",currentAlliance:"Mevcut ittifak *",preferredAlliance:"Başvurmak istediğiniz ittifak",backupAlliance:"Yedek tercih",watchtower:"Gözetleme kulesi seviyesi",overallPower:"Toplam CP *",march1:"1. yürüyüş gücü",march2:"2. yürüyüş gücü",march3:"3. yürüyüş gücü",march4:"4. yürüyüş gücü",activity:"Genel aktiflik / saat dilimi",role:"Tercih edilen oyun tarzı",reason:"Neden 625'e katılmak istiyorsunuz? *",bag:"ÇANTA EKRAN GÖRÜNTÜSÜ (isteğe bağlı)",bagHint:"Oyun içi çantanızın net bir ekran görüntüsünü yükleyin. Birden fazla görsel seçebilirsiniz.",confirm:"Verdiğim bilgilerin doğru olduğunu onaylıyorum ve WIS liderliğinin ek bilgi için benimle iletişime geçebileceğini anlıyorum.",submit:"BAŞVURUYU GÖNDER",footer:"WIS • 625. EYALET • BAŞVURU PORTALI",languageLabel:"DİL",phPlayerName:"Oyuncu adınız",phPlayerId:"Oyun içi ID'niz",phState:"örn. 620",phAlliance:"İttifak etiketi / adı",phOptional:"İsteğe bağlı",phLevel:"örn. 30",phPower:"örn. 250M",phMarch:"örn. 25M",phActivity:"örn. Her gün, UTC+8",phReason:"Neden 625'e katılmak istediğinizi yazın"},
+      ar: {currentAllianceRole:"دورك في التحالف الحالي",preferredContact:"طريقة التواصل المفضلة",discordUsername:"اسم مستخدم Discord",phDiscord:"أدخل اسم مستخدم Discord",member:"عضو",inGame:"داخل اللعبة",discord:"Discord",state:"الولاية 625 • DARK WAR",application:"طلب انتقال",intake:"التجنيد مفتوح",intro:"يرجى تعبئة الطلب بدقة. الحقول المحددة",intro2:"مطلوبة. ستراجع قيادة WIS بياناتك. إرسال الطلب لا يضمن القبول.",playerSection:"معلومات اللاعب",powerSection:"الحساب والقوة",activitySection:"النشاط والخلفية",proofSection:"لقطات الشاشة والتأكيد",playerName:"اسم اللاعب داخل اللعبة *",playerId:"معرّف اللاعب *",currentState:"الولاية الحالية *",currentAlliance:"التحالف الحالي *",preferredAlliance:"التحالف الذي ترغب في التقديم إليه",backupAlliance:"الخيار الاحتياطي",watchtower:"مستوى برج المراقبة",overallPower:"القوة الإجمالية CP *",march1:"قوة المسيرة الأولى",march2:"قوة المسيرة الثانية",march3:"قوة المسيرة الثالثة",march4:"قوة المسيرة الرابعة",activity:"وقت النشاط المعتاد / المنطقة الزمنية",role:"أسلوب اللعب المفضل",reason:"لماذا تريد الانضمام إلى 625؟ *",bag:"لقطة شاشة للحقيبة (اختياري)",bagHint:"ارفع لقطة واضحة لحقيبتك داخل اللعبة. يمكنك اختيار أكثر من صورة.",confirm:"أؤكد أن المعلومات المقدمة صحيحة، وأفهم أن قيادة WIS قد تتواصل معي لطلب تفاصيل إضافية.",submit:"إرسال الطلب",footer:"WIS • الولاية 625 • بوابة التقديم",languageLabel:"اللغة",phPlayerName:"اسم اللاعب",phPlayerId:"معرّفك داخل اللعبة",phState:"مثال: 620",phAlliance:"رمز التحالف / اسمه",phOptional:"اختياري",phLevel:"مثال: 30",phPower:"مثال: 250M",phMarch:"مثال: 25M",phActivity:"مثال: يوميًا، UTC+8",phReason:"أخبرنا لماذا تريد الانضمام إلى 625"},
+      id: {currentAllianceRole:"Peran di aliansi saat ini",preferredContact:"Metode kontak pilihan",discordUsername:"Nama pengguna Discord",phDiscord:"Masukkan nama pengguna Discord",member:"Anggota",inGame:"Dalam game",discord:"Discord",state:"NEGARA 625 • DARK WAR",application:"FORMULIR MIGRASI",intake:"PENDAFTARAN DIBUKA",intro:"Isi formulir dengan benar. Kolom yang ditandai",intro2:"wajib diisi. Data Anda akan ditinjau oleh pimpinan WIS. Mengirim formulir tidak menjamin penerimaan.",playerSection:"INFORMASI PEMAIN",powerSection:"AKUN & KEKUATAN",activitySection:"AKTIVITAS & LATAR BELAKANG",proofSection:"TANGKAPAN LAYAR & KONFIRMASI",playerName:"Nama dalam game *",playerId:"ID pemain *",currentState:"Negara saat ini *",currentAlliance:"Aliansi saat ini *",preferredAlliance:"Aliansi yang ingin Anda lamar",backupAlliance:"Pilihan cadangan",watchtower:"Level menara pengawas",overallPower:"Total CP *",march1:"Kekuatan march 1",march2:"Kekuatan march 2",march3:"Kekuatan march 3",march4:"Kekuatan march 4",activity:"Waktu aktif / zona waktu",role:"Gaya bermain pilihan",reason:"Mengapa ingin bergabung dengan 625? *",bag:"TANGKAPAN LAYAR TAS (opsional)",bagHint:"Unggah tangkapan layar tas dalam game yang jelas. Anda dapat memilih beberapa gambar.",confirm:"Saya mengonfirmasi bahwa informasi yang diberikan benar dan memahami bahwa pimpinan WIS dapat menghubungi saya untuk detail tambahan.",submit:"KIRIM APLIKASI",footer:"WIS • NEGARA 625 • PORTAL APLIKASI",languageLabel:"BAHASA",phPlayerName:"Nama pemain Anda",phPlayerId:"ID dalam game Anda",phState:"mis. 620",phAlliance:"Tag / nama aliansi",phOptional:"Opsional",phLevel:"mis. 30",phPower:"mis. 250M",phMarch:"mis. 25M",phActivity:"mis. Setiap hari, UTC+8",phReason:"Ceritakan alasan ingin bergabung dengan 625"}
     };
 
     const landing = document.getElementById('landing');
@@ -307,6 +381,10 @@
         const k = el.dataset.i18nPlaceholder;
         if (dict[k]) el.placeholder = dict[k];
       });
+      document.querySelectorAll('[data-i18n-option]').forEach(el => {
+        const k = el.dataset.i18nOption;
+        if (dict[k]) el.textContent = dict[k];
+      });
       const prompts = {
         en:["Select preference","Select one"], es:["Selecciona una preferencia","Selecciona una opción"],
         pt:["Selecione uma preferência","Selecione uma opção"], de:["Auswahl treffen","Bitte auswählen"],
@@ -321,6 +399,18 @@
     }
     languageSelect.addEventListener('change', applyLanguage);
     applyLanguage();
+
+    const preferredContact = document.getElementById('preferredContact');
+    const discordUsernameField = document.getElementById('discordUsernameField');
+    const discordUsername = document.getElementById('discordUsername');
+    function updateContactFields() {
+      const usingDiscord = preferredContact.value === 'Discord';
+      discordUsernameField.hidden = !usingDiscord;
+      discordUsername.required = usingDiscord;
+      if (!usingDiscord) discordUsername.value = '';
+    }
+    preferredContact.addEventListener('change', updateContactFields);
+    updateContactFields();
 
     const form = document.getElementById('applicationForm');
     const notice = document.getElementById('formNotice');
@@ -343,16 +433,52 @@
           body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
-        if (response.ok) {
+        const responseText = await response.text();
+        let result = {};
+        try {
+          result = responseText ? JSON.parse(responseText) : {};
+        } catch (_) {
+          result = {};
+        }
+
+        if (response.ok && result.ok !== false) {
           form.reset();
           notice.className = 'notice success';
           notice.textContent = 'Application submitted. Thank you for applying to WIS!';
         } else {
-          throw new Error('Submission failed');
+          const apiErrors = Array.isArray(result.errors) ? result.errors : [];
+          const errorCodes = apiErrors.map(item => String(item.code || '').toUpperCase());
+          const apiMessages = apiErrors
+            .map(item => item.message || item.field)
+            .filter(Boolean);
+
+          let message;
+          if (errorCodes.includes('NO_FILE_UPLOADS')) {
+            message = 'Your application was not sent. This Formspree form does not currently support screenshot uploads. Please remove the BAG SCREENSHOT and submit again, or enable file uploads for this form in your Formspree plan.';
+          } else if (errorCodes.includes('FILES_TOO_BIG')) {
+            message = 'Your application was not sent because a screenshot is too large. Please use an image smaller than 25 MB and try again.';
+          } else if (errorCodes.includes('TOO_MANY_FILES')) {
+            message = 'Your application was not sent because too many screenshots were attached. Please attach no more than 10 images.';
+          } else if (errorCodes.includes('INACTIVE') || errorCodes.includes('BLOCKED')) {
+            message = 'Your application form is currently inactive or blocked in Formspree. Please contact WIS leadership.';
+          } else if (errorCodes.includes('REQUIRED_FIELD_MISSING') || errorCodes.includes('REQUIRED_FIELD_EMPTY')) {
+            message = 'Some required information is missing. Please review the form and complete all required fields.';
+          } else if (apiMessages.length) {
+            message = 'Formspree could not accept this application: ' + apiMessages.join(' • ');
+          } else if (response.status === 429) {
+            message = 'Too many applications were submitted in a short time. Please wait a minute and try again.';
+          } else {
+            message = 'Formspree returned an error (HTTP ' + response.status + '). Please check the form settings or try again later.';
+          }
+
+          notice.className = 'notice error';
+          notice.textContent = message;
+          notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       } catch (error) {
         notice.className = 'notice error';
-        notice.textContent = 'We could not submit your application. Please try again or contact WIS leadership.';
+        notice.textContent = 'We could not reach Formspree. Please check your internet connection and try again. If the problem continues, contact WIS leadership.';
+        notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } finally {
         button.disabled = false;
         button.textContent = 'SUBMIT APPLICATION';
