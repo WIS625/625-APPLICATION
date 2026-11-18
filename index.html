@@ -70,16 +70,34 @@
       .grid { grid-template-columns:1fr; gap:13px; }
       .field.full { grid-column:auto; }
     }
-      [hidden] { display:none !important; }
+  
+    body.landing-mode { min-height:100svh; overflow:hidden; background:#080d12; }
+    body.landing-mode .topline { display:none; }
+    body.landing-mode .wrap { width:100%; max-width:none; height:100svh; min-height:100svh; margin:0; padding:0; }
+    #landing { width:100%; height:100svh; min-height:100svh; display:flex; flex-direction:column; background:#080d12; }
+    .landing-art { flex:1 1 auto; min-height:0; width:100%; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:0; }
+    .landing-art img { display:block; width:auto; height:auto; max-width:100%; max-height:100%; object-fit:contain; object-position:center; }
+    .landing-cta { flex:0 0 auto; width:100%; display:flex; justify-content:center; padding:10px 16px calc(10px + env(safe-area-inset-bottom)); background:linear-gradient(180deg,#0b1117,#080d12); }
+    .landing-cta button { width:min(560px,100%); min-height:62px; padding:16px 22px; border:2px solid #e7d2a5; border-radius:16px; background:linear-gradient(180deg,#f0d79f 0%,#d2b477 100%); color:#111820; font-size:clamp(18px,3vw,25px); letter-spacing:.16em; box-shadow:0 6px 20px #0008; }
+    @media(min-width:700px) {
+      .landing-art img { max-height:calc(100svh - 100px); }
+      .landing-cta { padding-top:8px; }
+    }
+
+    [hidden] { display:none !important; }
   </style>
 </head>
-<body>
+<body class="landing-mode">
   <div class="topline"></div>
   <main class="wrap">
 
-    <section id="landing" style="width:min(100%,680px);margin:0 auto 28px;display:flex;flex-direction:column;align-items:center;gap:18px;">
-      <img src="wis-landing-duck.png" alt="WIS duck mascot welcoming applicants to State 625" style="display:block;width:100%;height:auto;object-fit:contain;border:1px solid #394754;border-radius:12px;">
-      <button id="openApplication" type="button" style="width:min(92%,560px);padding:24px 22px;letter-spacing:.16em;font-size:clamp(18px,3vw,26px);border:2px solid #e7d2a5;border-radius:18px;background:linear-gradient(180deg,#f0d79f 0%,#d2b477 100%);color:#111820;box-shadow:0 8px 24px #0008;">APPLY NOW</button>
+    <section id="landing">
+      <div class="landing-art">
+        <img src="wis-landing-duck.png" alt="State 625 crowned duck mascot and snowy fortress">
+      </div>
+      <div class="landing-cta">
+        <button id="openApplication" type="button">APPLY NOW ›</button>
+      </div>
     </section>
     <header id="formHeader" style="display:none">
       <div class="crest">WIS</div>
@@ -96,12 +114,21 @@
         <label for="languageSelect" style="display:block;margin-bottom:6px;color:#d7e0e4">LANGUAGE / 语言</label>
         <select id="languageSelect" aria-label="Select language">
           <option value="en">🇬🇧 English</option>
-          <option value="fil">🇵🇭 Filipino</option>
-          <option value="vi">🇻🇳 Tiếng Việt</option>
           <option value="ko">🇰🇷 한국어</option>
+          <option value="zh-Hant">🇹🇼 繁體中文</option>
+          <option value="zh-Hans">🇨🇳 简体中文</option>
           <option value="ja">🇯🇵 日本語</option>
-          <option value="zh">🇨🇳 中文</option>
           <option value="th">🇹🇭 ไทย</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="pt">🇵🇹 Português</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="it">🇮🇹 Italiano</option>
+          <option value="tr">🇹🇷 Türkçe</option>
+          <option value="ru">🇷🇺 Русский</option>
+          <option value="ar">🇸🇦 العربية</option>
+          <option value="vi">🇻🇳 Tiếng Việt</option>
+          <option value="id">🇮🇩 Bahasa Indonesia</option>
         </select>
       </div>
       <div class="intro">
@@ -241,6 +268,7 @@
     const formHeader = document.getElementById('formHeader');
     const applicationForm = document.getElementById('applicationForm');
     document.getElementById('openApplication').addEventListener('click', () => {
+      document.body.classList.remove('landing-mode');
       landing.hidden = true;
       formHeader.style.display = 'block';
       applicationForm.style.display = 'block';
@@ -248,7 +276,8 @@
     });
     const languageSelect = document.getElementById('languageSelect');
     languageSelect.addEventListener('change', () => {
-      const dict = translations[languageSelect.value] || translations.en;
+      const languageKey = languageSelect.value.startsWith('zh-') ? 'zh' : languageSelect.value;
+      const dict = translations[languageKey] || translations.en;
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         if (dict[key]) {
