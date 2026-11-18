@@ -454,21 +454,21 @@
 
           let message;
           if (errorCodes.includes('NO_FILE_UPLOADS')) {
-            message = 'Your application was not sent. This Formspree form does not currently support screenshot uploads. Please remove the BAG SCREENSHOT and submit again, or enable file uploads for this form in your Formspree plan.';
+            message = 'Your application was not sent. This form does not currently support screenshot uploads. Please remove the BAG SCREENSHOT and submit again.';
           } else if (errorCodes.includes('FILES_TOO_BIG')) {
             message = 'Your application was not sent because a screenshot is too large. Please use an image smaller than 25 MB and try again.';
           } else if (errorCodes.includes('TOO_MANY_FILES')) {
             message = 'Your application was not sent because too many screenshots were attached. Please attach no more than 10 images.';
           } else if (errorCodes.includes('INACTIVE') || errorCodes.includes('BLOCKED')) {
-            message = 'Your application form is currently inactive or blocked in Formspree. Please contact WIS leadership.';
+            message = 'Your application form is currently inactive or blocked. Please contact WIS leadership.';
           } else if (errorCodes.includes('REQUIRED_FIELD_MISSING') || errorCodes.includes('REQUIRED_FIELD_EMPTY')) {
             message = 'Some required information is missing. Please review the form and complete all required fields.';
           } else if (apiMessages.length) {
-            message = 'Formspree could not accept this application: ' + apiMessages.join(' • ');
+            message = 'Could not accept this application. Please contact WIS leadership. ' + apiMessages.join(' • ');
           } else if (response.status === 429) {
             message = 'Too many applications were submitted in a short time. Please wait a minute and try again.';
           } else {
-            message = 'Formspree returned an error (HTTP ' + response.status + '). Please check the form settings or try again later.';
+            message = 'Form returned an error (HTTP ' + response.status + '). Please check the form settings or try again later.';
           }
 
           notice.className = 'notice error';
