@@ -173,7 +173,20 @@
     @media (max-width: 600px) {
       .tally-frame, .tally-frame iframe { min-height: 900px; }
     }
-  </style>
+  
+    .landing-art {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .landing-art img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+\n  </style>
   <script async src="https://tally.so/widgets/embed.js"></script></head>
 <body class="landing-mode">
   <div class="topline"></div>
@@ -182,7 +195,10 @@
     <section id="landing" aria-label="WIS State 625 welcome">
       <div class="landing-backdrop" aria-hidden="true"></div>
       <div class="landing-poster">
-        <img src="wis-landing-duck.png" alt="State 625 crowned duck mascot and snowy fortress">
+        <picture class="landing-art">
+          <source media="(min-width: 768px)" srcset="wis-landing-duck-landscape.png">
+          <img src="wis-landing-duck.png" alt="State 625 crowned duck mascot and snowy fortress">
+        </picture>
       </div>
       <button id="openApplication" class="landing-apply" type="button">APPLY NOW ›</button>
     </section>
